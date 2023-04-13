@@ -52,7 +52,7 @@ Returns the information about the current user that is logged in.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: '/profile/:profileId'
+  * URL: '/users/:userId'
   * Body: none
 
 * Successful Response when there is a logged in user
