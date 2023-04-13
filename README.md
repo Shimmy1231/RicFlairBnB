@@ -296,7 +296,7 @@ Returns all the spots owned (created) by the current user.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: '/spots/:userId'
+  * URL: '/users/:userId/spots'
   * Body: none
 
 * Successful Response
@@ -477,7 +477,7 @@ Create and return a new image for a spot specified by id.
 * Require proper authorization: Spot must belong to the current user
 * Request
   * Method: POST
-  * URL: '/spots/:spotId/images/new'
+  * URL: '/users/:userId/spots/:spotId/images/new'
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -612,7 +612,7 @@ Deletes an existing spot.
 * Require proper authorization: Spot must belong to the current user
 * Request
   * Method: DELETE
-  * URL: '/users/:userId/spots/:spotId/delete'
+  * URL: '/users/:userId/spots/:spotId'
   * Body: none
 
 * Successful Response
