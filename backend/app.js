@@ -39,7 +39,8 @@ if (!isProduction) {
       }
     })
   );
-  app.use(routes); // Connect all the routes
+
+app.use(routes); // Connect all the routes
 
 // Catch unhandled requests and forward to error handler.
 app.use((_req, _res, next) => {
