@@ -15,6 +15,9 @@ module.exports = (sequelize, DataTypes) => {
 
       // One to Many relationship of a Spot having many Reviews
       Review.belongsTo(models.Spot, { foreignKey: 'spotId' });
+
+      // One to Many relationship of a Review having many ReviewImages
+      Review.hasMany(models.ReviewImage, { foreignKey: 'reviewId' });
     }
   }
   Review.init({
@@ -34,7 +37,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
-        len: [1, 5]
+        min: 0,
+        max: 5,
+        isNumeric: true,
       }
     },
   }, {

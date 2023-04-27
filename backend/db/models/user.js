@@ -10,8 +10,13 @@ module.exports = (sequelize, DataTypes) => {
       // One to Many relationship of a User having many Reviews
       User.hasMany(models.Review, { foreignKey: 'userId' });
 
-      // One to Many relationsihp of a User having many Bookings
+      // One to Many relationship of a User having many Bookings
       User.hasMany(models.Booking, { foreignKey: 'userId' });
+
+      // One to Many relationship of a User having many ReviewImages
+      User.hasMany(models.ReviewImage, { foreignKey: 'userId' });
+
+
     }
   };
 
