@@ -19,7 +19,8 @@ module.exports = (sequelize, DataTypes) => {
       // One to Many relationships of a Spot having many Bookings
       Spot.hasMany(models.Booking, { foreignKey: 'spotId' });
 
-
+      // One to Many relationship of a Spot having many SpotsImages
+      Spot.hasMany(models.SpotsImage, { foreignKey: 'spotId' });
     }
   }
   Spot.init(

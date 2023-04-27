@@ -20,10 +20,12 @@ module.exports = {
         allowNull: false
       },
       reviewId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false
       },
       userId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
@@ -40,6 +42,8 @@ module.exports = {
     options.tableName = "ReviewImages";
   },
   async down(queryInterface, Sequelize) {
+    options.tableName = "ReviewImages";
+
     await queryInterface.dropTable(options);
   }
 };
