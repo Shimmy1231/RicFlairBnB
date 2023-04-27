@@ -2,7 +2,7 @@
 
 ## Database Schema Design
 
-![image](https://user-images.githubusercontent.com/111400731/230274572-0c390ce8-a0d8-4817-ace6-e52914799046.png)
+![image](https://user-images.githubusercontent.com/111400731/232950780-1d0f2204-6fe9-4333-a707-7e16e4bab1d9.png)
 
 ## API Documentation
 
@@ -477,7 +477,7 @@ Create and return a new image for a spot specified by id.
 * Require proper authorization: Spot must belong to the current user
 * Request
   * Method: POST
-  * URL: 'spots/:spotId/images'
+  * URL: '/spots/:spotId/images'
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -843,7 +843,7 @@ Create and return a new image for a review specified by id.
 * Require proper authorization: Review must belong to the current user
 * Request
   * Method: POST
-  * URL: 'reviews/:reviewId/images'
+  * URL: '/reviews/:reviewId/images'
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -902,7 +902,7 @@ Update and return an existing review.
 * Require proper authorization: Review must belong to the current user
 * Request
   * Method: PUT
-  * URL: 'reviews/:reviewId'
+  * URL: '/reviews/:reviewId'
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -1122,7 +1122,7 @@ Create and return a new booking from a spot specified by id.
 * Require proper authorization: Spot must NOT belong to the current user
 * Request
   * Method: POST
-  * URL: /spots/:spotId/bookings
+  * URL: '/spots/:spotId/bookings'
   * Body:
 
     ```json
@@ -1354,7 +1354,7 @@ Delete an existing image for a Spot.
 * Require proper authorization: Spot must belong to the current user
 * Request
   * Method: DELETE
-  * URL: '/images/:imageId'
+  * URL: '/spotImages/:spotImageId'
   * Body: none
 
 * Successful Response
@@ -1391,7 +1391,7 @@ Delete an existing image for a Review.
 * Require proper authorization: Review must belong to the current user
 * Request
   * Method: DELETE
-  * URL: '/images/:imageId'
+  * URL: '/reviewImages/:reviewImageId'
   * Body: none
 
 * Successful Response
