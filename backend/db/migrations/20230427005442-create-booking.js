@@ -50,8 +50,10 @@ module.exports = {
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP")
       }
     }, options);
+
+    options.tableName = "Bookings";
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Bookings');
+    await queryInterface.dropTable(options);
   }
 };
