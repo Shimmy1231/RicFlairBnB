@@ -6,32 +6,35 @@ if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
 
-const { ReviewImage } = require('../models');
+const { SpotsImage } = require('../models');
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    options.tableName = 'ReviewImages';
+    options.tableName = 'SpotsImages';
     return queryInterface.bulkInsert(options, [
       {
-        url: 'abc.com',
-        reviewId: 1,
+        url: 'jkl.com',
+        spotId: 1,
+        preview: true
       },
       {
-        url: 'def.com',
-        reviewId: 2,
+        url: 'mno.com',
+        spotId: 2,
+        preview: true
       },
       {
-        url: 'ghi.com',
-        reviewId: 3,
+        url: 'pqr.com',
+        spotId: 3,
+        preview: true
       }
     ], {});
   },
 
   down: async (queryInterface, Sequelize) => {
-    options.tableName = 'ReviewImages';
+    options.tableName = 'SpotsImages';
     const Op = Sequelize.Op;
     await queryInterface.bulkDelete(options, {
-      reviewId: { [Op.in]:
+      spotId: { [Op.in]:
         [
           1,
           2,
