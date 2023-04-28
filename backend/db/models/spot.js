@@ -17,10 +17,16 @@ module.exports = (sequelize, DataTypes) => {
       Spot.hasMany(models.Review, { foreignKey: 'spotId', onDelete: "CASCADE", hooks: true });
 
       // One to Many relationships of a Spot having many Bookings
-      Spot.hasMany(models.Booking, { foreignKey: 'spotId' });
+      Spot.hasMany(models.Booking, { foreignKey: 'spotId', onDelete: "CASCADE", hooks: true });
 
       // One to Many relationship of a Spot having many SpotsImages
-      Spot.hasMany(models.SpotsImage, { foreignKey: 'spotId' });
+      Spot.hasMany(models.SpotsImage, { foreignKey: 'spotId', onDelete: "CASCADE", hooks: true });
+
+      // Many to many relationship of Users having many Bookings
+      Spot.belongsToMany(models.User, { through: models.Booking, foreignKey: 'spotId', otherKey: 'userId' });
+
+      // Many to many relationship of Users having many Reviews
+      Spot.belongsToMany(models.User, { through: models.Review, foreignKey: 'spotId', otherKey: 'userId' });
     }
   }
   Spot.init(
@@ -28,6 +34,11 @@ module.exports = (sequelize, DataTypes) => {
       ownerId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        references: {
+          model: 'Users',
+          key: 'id'
+        },
+        onDelete: "CASCADE",
       },
       address: {
         type: DataTypes.STRING,

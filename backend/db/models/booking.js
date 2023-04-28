@@ -20,11 +20,21 @@ module.exports = (sequelize, DataTypes) => {
   Booking.init({
     spotId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      references: {
+        model: 'Spots',
+        key: 'id'
+      },
+      onDelete: "CASCADE"
     },
     userId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      references: {
+        model: 'Users',
+        key: 'id'
+      },
+      onDelete: "CASCADE"
     },
     startDate: {
       type: DataTypes.DATE,
@@ -32,7 +42,14 @@ module.exports = (sequelize, DataTypes) => {
     },
     endDate: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        validEndDate(val) {
+          if (val <= this.startDate) {
+            throw new Error()
+          }
+        }
+      }
     },
   }, {
     sequelize,
