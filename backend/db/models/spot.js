@@ -22,11 +22,6 @@ module.exports = (sequelize, DataTypes) => {
       // One to Many relationship of a Spot having many SpotsImages
       Spot.hasMany(models.SpotsImage, { foreignKey: 'spotId', onDelete: "CASCADE", hooks: true });
 
-      // Many to many relationship of Users having many Bookings
-      Spot.belongsToMany(models.User, { through: models.Booking, foreignKey: 'spotId', otherKey: 'userId' });
-
-      // Many to many relationship of Users having many Reviews
-      Spot.belongsToMany(models.User, { through: models.Review, foreignKey: 'spotId', otherKey: 'userId' });
     }
   }
   Spot.init(

@@ -13,8 +13,6 @@ module.exports = (sequelize, DataTypes) => {
       // One to Many relationship of a Spot having many SpotsImages
       SpotsImage.belongsTo(models.Spot, { foreignKey: 'spotId' });
 
-      // One to Many relationship of a User having many SpotsImages
-      SpotsImage.belongsTo(models.User, { foreignKey: 'userId' });
     }
   }
   SpotsImage.init({

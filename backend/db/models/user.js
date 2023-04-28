@@ -13,17 +13,6 @@ module.exports = (sequelize, DataTypes) => {
       // One to Many relationship of a User having many Bookings
       User.hasMany(models.Booking, { foreignKey: 'userId', onDelete: "CASCADE", hooks: true });
 
-      // One to Many relationship of a User having many ReviewImages
-      User.hasMany(models.ReviewImage, { foreignKey: 'userId' });
-
-      // One to Many relationship of a User having many SpotsImages
-      User.hasMany(models.SpotsImage, { foreignKey: 'userId' });
-
-      // Many to many relationship of Users having many Bookings
-      User.belongsToMany(models.Spot, { through: models.Booking, foreignKey: 'spotId', otherKey: 'userId' });
-      // Many to many relationship of Users having many Reviews
-      User.belongsToMany(models.Spot, { through: models.Review, foreignKey: 'spotId', otherKey: 'userId' });
-
     }
   };
 

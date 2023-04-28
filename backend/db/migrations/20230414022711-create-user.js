@@ -50,7 +50,6 @@ module.exports = {
 
     options.tableName = "Users";
 
-    await queryInterface.addIndex(options, [ 'username', 'email' ]);
   },
 
 
@@ -58,6 +57,5 @@ module.exports = {
     options.tableName = "Users";
 
     await queryInterface.dropTable(options);
-    await queryInterface.removeIndex(options, [ 'username', 'email' ]);
   }
 };

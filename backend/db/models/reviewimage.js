@@ -10,9 +10,6 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // One to Many relationship of a User having many ReviewImages
-      ReviewImage.belongsTo(models.User, { foreignKey: 'userId' });
-
       // One to Many relationship of a Review having many ReviewImages
       ReviewImage.belongsTo(models.Review, { foreignKey: 'reviewId' });
     }
@@ -21,23 +18,15 @@ module.exports = (sequelize, DataTypes) => {
     url: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        isUrl: true,
-      }
+      // validate: {
+      //   isUrl: true,
+      // }
     },
     reviewId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: 'Reviews',
-        key: 'id'
-      }
-    },
-    userId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'Users',
         key: 'id'
       }
     },
