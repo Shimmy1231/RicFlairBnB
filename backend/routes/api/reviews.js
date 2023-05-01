@@ -36,3 +36,5 @@ router.get('/current/reviews',
 
         return res.json({ Reviews: results })
     });
+
+module.exports = router;
