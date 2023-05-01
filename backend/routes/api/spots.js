@@ -4,6 +4,7 @@ const { User, SpotsImage, Spot, ReviewImage, Review, Booking} = require('../../d
 //Validating Signup Request Body
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+const { Op } = require("sequelize");
 
 const router = express.Router();
 
