@@ -1,8 +1,27 @@
 'use strict';
-const { Model, Validator } = require('sequelize');
+const { Model, Validator, Sequelize } = require('sequelize');
+const bcrypt = require('bcryptjs');
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
+    //Sign-up verification
+    static async signup({ firstName, lastName, username, email, password }) {
+      const hashedPassword = bcrypt.hashSync(password);
+      const user = await User.create({
+        firstName,
+        lastName,
+        username,
+        email,
+        hashedPassword
+      });
+      return await User.scope('currentUser').findByPk(user.id);
+    };
+
+    //Current User by id
+    static async getCurrentUser(id) {
+      return User.scope('currentUser').findByPk(id);
+    };
+
     static associate(models) {
       // One to Many relationship of a User having many Spots
       User.hasMany(models.Spot, { foreignKey: 'ownerId', onDelete: "CASCADE", hooks: true });
@@ -18,6 +37,12 @@ module.exports = (sequelize, DataTypes) => {
 
   User.init(
     {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER,
+      },
       firstName: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -67,8 +92,16 @@ module.exports = (sequelize, DataTypes) => {
       defaultScope: {
         attributes: {
           exclude: ["hashedPassword", "email", "createdAt", "updatedAt"]
-        }
-      }
+        },
+      scopes: {
+        currentUser: {
+          attributes: {
+            exclude: ["hashedPassword", "createdAt", "updatedAt"]
+          }
+        },
+      },
+      },
+
     }
   );
   return User;
