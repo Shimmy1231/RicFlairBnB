@@ -1,4 +1,5 @@
 const express = require('express');
+const router = express.Router();
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, SpotsImage, Spot, ReviewImage, Review, Booking} = require('../../db/models');
 //Validating Signup Request Body
@@ -6,8 +7,6 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { Sequelize } = require("sequelize");
 
-
-const router = express.Router();
 
 const validateNewSpot = [
     check('address')
@@ -78,10 +77,10 @@ router.get('/',
             let theSpot = spots[i];
             theSpot = theSpot.toJSON();
 
-            const avgRating = await Review.findAll({
+            const avgStarRating = await Review.findAll({
                 raw: true,
                 where: { spotId: theSpot.id },
-                attributes: [[Sequelize.fn('AVG', Sequelize.col('stars')), 'avgRating']]
+                attributes: [[Sequelize.fn('AVG', Sequelize.col('stars')), 'avgStarRating']]
             });
 
             const previewImage = await SpotsImage.findAll({
@@ -90,7 +89,7 @@ router.get('/',
                 attributes: ['url'],
             });
 
-            if (avgRating.length) theSpot.avgRating = Number(avgRating[0].avgRating).toFixed(1);
+            if (avgStarRating.length) theSpot.avgStarRating = Number(avgStarRating[0].avgStarRating).toFixed(1);
             if (!previewImage.length) theSpot.previewImage = null;
             if (previewImage.length) theSpot.previewImage = previewImage[0].url;
 
@@ -111,10 +110,10 @@ router.get('/current',
         for (let i = 0; i < currentUsersSpots.length; i++) {
             let spot = currentUsersSpots[i];
             spot = spot.toJSON();
-            const avgRating = await Review.findAll({
+            const avgStarRating = await Review.findAll({
                 raw: true,
                 where: { spotId: spot.id },
-                attributes: [[Sequelize.fn('AVG', Sequelize.col('stars')), 'avgRating']]
+                attributes: [[Sequelize.fn('AVG', Sequelize.col('stars')), 'avgStarRating']]
             });
 
             const previewImage = await SpotsImage.findAll({
@@ -122,7 +121,7 @@ router.get('/current',
                 where: { preview: true, spotId: spot.id },
                 attributes: ['url']
             });
-            if (avgRating.length) spot.avgRating = Number(avgRating[0].avgRating).toFixed(1);
+            if (avgStarRating.length) spot.avgStarRating = Number(avgStarRating[0].avgStarRating).toFixed(1);
             if (previewImage.length) spot.previewImage = previewImage[0].url;
             if (!previewImage.length) spot.previewImage = null
             results.push(spot)
@@ -138,7 +137,7 @@ router.get('/:spotId',
             include: [
                 { model: SpotsImage, attributes: ['id', 'url', 'preview'] },
                 { model: SpotsImage, attributes: { exclude: ['spotId', 'createdAt', 'updatedAt'] } },
-                { model: User, attributes: ['id', 'firstName', 'lastName'] }
+                { model: User, attributes: ['id', 'firstName', 'lastName'], as: 'Owner' }
             ]
         });
         if (!thisSpot) res.json({ message: "Spot couldn't be found", statusCode: 404 });
@@ -149,13 +148,13 @@ router.get('/:spotId',
         thisSpot.numReviews = numReviews.length;
 
         // Average Rating of reviews for a Spot from an id
-        const avgRating = await Review.findAll({
+        const avgStarRating = await Review.findAll({
             raw: true,
             where: { spotId: req.params.spotId },
-            attributes: [[Sequelize.fn('AVG', Sequelize.col('stars')), 'avgRating']]
+            attributes: [[Sequelize.fn('AVG', Sequelize.col('stars')), 'avgStarRating']]
         });
 
-        if (avgRating.length) thisSpot.avgRating = Number(avgRating[0].avgRating).toFixed(1);
+        if (avgStarRating.length) thisSpot.avgStarRating = Number(avgStarRating[0].avgStarRating).toFixed(1);
 
         return res.json(thisSpot)
 });
