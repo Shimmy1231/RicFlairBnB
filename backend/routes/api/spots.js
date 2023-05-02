@@ -190,7 +190,6 @@ router.post('/:spotId/images',
         let findUser = await User.findByPk(req.user.id);
         const findSpot = await Spot.findByPk(req.params.spotId);
         findUser = findUser.toJSON();
-
         if(!findSpot) res.json({ message: "Spot couldn't be found", statusCode: 404 });
         if (findUser.id !== findSpot.ownerId) res.json({ message: "Forbidden", statusCode: 403 });
 
@@ -215,10 +214,11 @@ router.put('/:spotId',
     validateNewSpot,
     async (req, res) => {
         let { address, city, state, country, lat, lng, name, description, price } = req.body;
-
+        let findUser = await User.findByPk(req.user.id);
+        findUser = findUser.toJSON();
         const editSpot = await Spot.findByPk(req.params.spotId);
         if(!editSpot) res.json({ message: "Spot couldn't be found", statusCode: 404 });
-
+        if (findUser.id !== editSpot.ownerId) res.json({ message: "Forbidden", statusCode: 403 });
         editSpot.update({
             address,
             city,

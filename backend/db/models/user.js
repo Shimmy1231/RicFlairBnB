@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
       return User.scope('currentUser').findByPk(id);
     };
 
-    //Sign-up verification
+    // Sign-up verification
     static async signup({ firstName, lastName, username, email, password }) {
       const hashedPassword = bcrypt.hashSync(password);
       const user = await User.create({
@@ -20,6 +20,18 @@ module.exports = (sequelize, DataTypes) => {
         hashedPassword
       });
       return await User.findByPk(user.id);
+    };
+
+    // Authorization
+    static async matchUser( userId ) {
+      let findUser = await User.findByPk(userId);
+      let reply = {};
+      findUser = findUser.toJSON();
+      if(findUser.id !== userId) {
+        reply.message = "Forbidden",
+        reply.statusCode = 404
+      };
+      return reply;
     };
 
 
