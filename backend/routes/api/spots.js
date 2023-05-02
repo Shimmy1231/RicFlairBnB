@@ -4,7 +4,8 @@ const { User, SpotsImage, Spot, ReviewImage, Review, Booking} = require('../../d
 //Validating Signup Request Body
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
-// const { Op } = require("sequelize");
+const { Sequelize } = require("sequelize");
+
 
 const router = express.Router();
 
@@ -135,9 +136,9 @@ router.get('/:spotId',
     async (req, res) => {
         let thisSpot = await Spot.findByPk(req.params.spotId, {
             include: [
-                { model: SpotsImage, attributes: ['id', 'url', 'preview'], as: 'SpotImages' },
+                { model: SpotsImage, attributes: ['id', 'url', 'preview'] },
                 { model: SpotsImage, attributes: { exclude: ['spotId', 'createdAt', 'updatedAt'] } },
-                { model: User, attributes: ['id', 'firstName', 'lastName'], as: 'Owner' }
+                { model: User, attributes: ['id', 'firstName', 'lastName'] }
             ]
         });
         if (!thisSpot) res.json({ message: "Spot couldn't be found", statusCode: 404 });

@@ -31,14 +31,6 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id'
       }
     },
-    userId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'Users',
-        key: 'id'
-      }
-    },
     preview: {
       type: DataTypes.BOOLEAN,
       allowNull: false,

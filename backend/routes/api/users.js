@@ -50,19 +50,19 @@ router.post(
                 errors: { email: "User with that email already exists" }
             }));
 
-      const user = await User.create({ firstName, lastName, username, email, hashedPassword });
+      const user = await User.signup({ firstName, lastName, username, email, password });
       const safeUser = {
         id: user.id,
         firstName: user.firstName,
         lastName: user.lastName,
         username: user.username,
-        email: user.email
+        email: user.email,
       };
-      const token = await setTokenCookie(res, user);
+      const token = await setTokenCookie(res, safeUser);
       safeUser.token = token;
       res.status(200);
       return res.json({
-        user: safeUser
+        user : safeUser
       })
 
   }

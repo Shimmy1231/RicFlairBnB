@@ -4,6 +4,7 @@ const { User, SpotsImage, Spot, ReviewImage, Review, Booking} = require('../../d
 //Validating Signup Request Body
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+const { Sequelize } = require("sequelize");
 
 const router = express.Router();
 
@@ -12,7 +13,7 @@ router.get('/current/reviews',
     requireAuth,
     async (req, res) => {
         const currentReviews = await Review.findAll({
-            where: { userId: req.user.id },
+            where: { userId: req.User.id },
             include: [
                 { model: User, attributes: ['id', 'firstName', 'lastName'] },
                 { model: Spot, attributes: { exclude: ['description', 'createdAt', 'updatedAt'] } },
