@@ -17,13 +17,18 @@ const validateSignup = [
     .isLength({ min: 4 })
     .withMessage('Please provide a username with at least 4 characters.'),
   check('username')
-    .not()
-    .isEmail()
+    .notEmpty()
     .withMessage('Username cannot be an email.'),
   check('password')
     .exists({ checkFalsy: true })
     .isLength({ min: 6 })
     .withMessage('Password must be 6 characters or more.'),
+  check('firstName')
+    .notEmpty()
+    .withMessage('Please provide your first name.'),
+  check('lastName')
+    .notEmpty()
+    .withMessage('Please provide your last name'),
   handleValidationErrors
 ];
 
@@ -67,5 +72,16 @@ router.post(
 
   }
 );
+
+// Get the Current User
+router.get(
+  '/current',
+  requireAuth,
+  async (req, res) => {
+    const userId = req.user.id;
+    const currentUser = await User.getCurrentUser(userId);
+
+    return res.json({ user: currentUser })
+  })
 
 module.exports = router;

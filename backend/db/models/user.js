@@ -4,6 +4,11 @@ const bcrypt = require('bcryptjs');
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
+    //Current User by id
+    static async getCurrentUser(id) {
+      return User.scope('currentUser').findByPk(id);
+    };
+
     //Sign-up verification
     static async signup({ firstName, lastName, username, email, password }) {
       const hashedPassword = bcrypt.hashSync(password);
@@ -14,13 +19,9 @@ module.exports = (sequelize, DataTypes) => {
         email,
         hashedPassword
       });
-      return await User.scope('currentUser').findByPk(user.id);
+      return await User.findByPk(user.id);
     };
 
-    //Current User by id
-    static async getCurrentUser(id) {
-      return User.scope('currentUser').findByPk(id);
-    };
 
     static associate(models) {
       // One to Many relationship of a User having many Spots
@@ -91,15 +92,15 @@ module.exports = (sequelize, DataTypes) => {
       modelName: 'User',
       defaultScope: {
         attributes: {
-          exclude: ["hashedPassword", "email", "createdAt", "updatedAt"]
+          exclude: ["hashedPassword", "username", "createdAt", "updatedAt"]
         },
+      },
       scopes: {
         currentUser: {
           attributes: {
             exclude: ["hashedPassword", "createdAt", "updatedAt"]
           }
         },
-      },
       },
 
     }
