@@ -61,7 +61,7 @@ const setTokenCookie = (res, user) => {
   };
 // If there is no current user, return an error
 const requireAuth = function (req, _res, next) {
-    if (req.user) return next();
+    if (req.user.id) return next();
 
     const err = new Error('Authentication required');
     err.title = 'Authentication required';

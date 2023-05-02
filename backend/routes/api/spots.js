@@ -102,6 +102,7 @@ router.get('/',
 
 // Get all Spots owned by Current User
 router.get('/current',
+    requireAuth,
     async (req, res) => {
         const userId = req.user.id;
         const currentUsersSpots = await Spot.findAll({ where: { ownerId: userId } });
@@ -165,7 +166,6 @@ router.post('/',
     validateNewSpot,
         async (req, res) => {
            let { address, city, state, country, lat, lng, name, description, price } = req.body;
-           const user = await User.findByPk(req.user.id)
            const newSpot = await Spot.create({
             ownerId: req.user.id,
             address,
@@ -186,8 +186,13 @@ router.post('/:spotId/images',
     requireAuth,
     async (req, res) => {
         let { url, preview } = req.body;
+        // Authorization
+        let findUser = await User.findByPk(req.user.id);
         const findSpot = await Spot.findByPk(req.params.spotId);
+        findUser = findUser.toJSON();
+
         if(!findSpot) res.json({ message: "Spot couldn't be found", statusCode: 404 });
+        if (findUser.id !== findSpot.ownerId) res.json({ message: "Forbidden", statusCode: 403 });
 
         const spotImage = await SpotsImage.create({
             spotId: req.params.spotId,
