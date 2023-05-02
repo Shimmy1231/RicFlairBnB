@@ -228,7 +228,7 @@ router.put('/:spotId',
         });
 
         return res.json(editSpot)
-    })
+    });
 
 
 // Delete a Spot
@@ -242,6 +242,63 @@ router.delete('/:spotId',
         await deleteSpot.destroy();
 
         res.json({ message: "Successfully deleted", statusCode: 200})
+    });
+
+// Get all Reviews by a Spot's id
+router.get('/:spotId/reviews', async (req, res) => {
+    const spot = await Spot.findByPk(req.params.spotId);
+    if (!spot) res.json({ message: "Spot couldn't be found", statusCode: 404 });
+
+    const allReviews = await Review.findAll({
+        where: { spotId: req.params.spotId },
+        include: [{
+            model: User,
+            attributes: ['id', 'firstName', 'lastName']
+        },
+        {
+            model: ReviewImage,
+            attributes: ['id', 'url'],
+        }]
+    });
+    res.json({ Reviews: allReviews })
+});
+
+// Create a Review for a Spot based on the Spot's id
+router.post('/:spotId/reviews',
+    requireAuth,
+    async (req, res) => {
+        let { review, stars } = req.body;
+        const spot = await Spot.findByPk(req.params.spotId, { include: { model: Review } });
+        const user = await User.findByPk(req.user.id);
+
+        // Couldn't find a Spot with the specified id
+        if (!spot) res.json({ message: "Spot couldn't be found", statusCode: 404 });
+
+        // Matching Review with Spot's id (true/false)
+        let matchReview = (spot, ownerId) => {
+            spot = spot.toJSON();
+
+            for (let reviews of spot.Reviews) {
+                if (ownerId === reviews.spotId) {
+                    return true;
+                }
+            }
+            return false;
+        };
+
+        // Review from the current user already exists for the Spot
+        if (matchReview(spot, req.user.id)) {
+            return res.json({ message: "User already has a review for this spot", statusCode: 403 });
+        };
+
+        const newReview = await Review.create({
+            userId: req.user.id,
+            spotId: req.spot.id,
+            review,
+            stars
+        });
+
+        return res.json(newReview)
     })
 
-    module.exports = router;
+module.exports = router;
