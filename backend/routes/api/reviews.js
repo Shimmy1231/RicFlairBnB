@@ -9,11 +9,15 @@ const { Sequelize } = require("sequelize");
 const router = express.Router();
 
 // Get all Reviews of the Current User
-router.get('/current/reviews',
+router.get('/current',
     requireAuth,
     async (req, res) => {
+        const userId = req.user.id;
+        const currentUsersSpots = await Spot.findAll({
+            where: { ownerId: userId }
+        });
         const currentReviews = await Review.findAll({
-            where: { userId: req.User.id },
+            where: { userId: userId },
             include: [
                 { model: User, attributes: ['id', 'firstName', 'lastName'] },
                 { model: Spot, attributes: { exclude: ['description', 'createdAt', 'updatedAt'] } },
@@ -25,13 +29,20 @@ router.get('/current/reviews',
         for (let i = 0; i < currentReviews.length; i++) {
             let review = currentReviews[i];
             review = review.toJSON();
-            const previewImage = await ReviewImage.findAll({
-                raw: true,
-                where: { preview: true, reviewId: review.id },
-                attributes: ['url']
-            });
-            if (previewImage.length) review.previewImage = previewImage[0].url;
-            if (!previewImage.length) review.previewImage = null;
+
+            // Preview Image for Spots
+            for (let spot of currentUsersSpots) {
+                spot = spot.toJSON();
+                const previewImage = await SpotsImage.findAll({
+                    raw: true,
+                    where: { preview: true, spotId: spot.id },
+                    attributes: ['url']
+                });
+                if (previewImage.length) spot.previewImage = previewImage[0].url;
+                if (!previewImage.length) spot.previewImage = null;
+                console.log(spot, 'WOIEJFOIWEJFOIWJEFOIWJEFOIJ');
+            }
+
             results.push(review);
         }
 
@@ -39,16 +50,5 @@ router.get('/current/reviews',
     });
 
 // Add an Image to a Review based on the Review's id
-// router.post('/:reviewId/images',
-//     requireAuth,
-//     async (req, res) => {
-//         let { url } = req.body;
-//         const findReview = await Review.findByPk(req.params.reviewId);
-//         if (!findReview) res.json({ message: "Review couldn't be found", statusCode: 404 });
-
-//         const reviewImage = await ReviewImage.create({
-
-//         })
-//     })
 
 module.exports = router;
