@@ -49,5 +49,28 @@ router.get('/current',
     });
 
 // Add an Image to a Review based on the Review's id
+router.post('/:reviewId/images',
+    requireAuth,
+    async (req, res) => {
+        let { url } = req.body;
+        // Authorization
+        let findUser = await User.findByPk(req.user.id);
+        const findReview = await Review.findByPk(req.params.reviewId);
+        findUser = findUser.toJSON();
+        if (!findReview) res.json({ message: "Review couldn't be found" , statusCode: 404 });
+        if (findUser.id !== findReview.userId) res.json({ message: "Only the owner of the review is authorized to add an image", statusCode: 403 });
+
+        const reviewImage = await ReviewImage.create({
+            reviewId: req.params.reviewId,
+            url
+        });
+
+        const result = {
+            id: reviewImage.reviewId,
+            url: reviewImage.url
+        };
+
+        res.json(result)
+    });
 
 module.exports = router;
