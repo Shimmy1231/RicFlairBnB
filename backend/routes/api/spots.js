@@ -7,6 +7,19 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { Sequelize } = require("sequelize");
 
+const validateNewReview = [
+    check('review')
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .isString()
+        .withMessage('Review text is required'),
+    check('stars')
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .isInt({ min: 1, max: 5 })
+        .withMessage('Stars must be an integer from 1 to 5'),
+    handleValidationErrors
+];
 
 const validateNewSpot = [
     check('address')
@@ -270,6 +283,7 @@ router.get('/:spotId/reviews', async (req, res) => {
 // Create a Review for a Spot based on the Spot's id
 router.post('/:spotId/reviews',
     requireAuth,
+    validateNewReview,
     async (req, res) => {
         let { review, stars } = req.body;
         const spot = await Spot.findByPk(req.params.spotId, { include: { model: Review } });
@@ -297,7 +311,7 @@ router.post('/:spotId/reviews',
 
         const newReview = await Review.create({
             userId: req.user.id,
-            spotId: req.spot.id,
+            spotId: spot.id,
             review,
             stars
         });

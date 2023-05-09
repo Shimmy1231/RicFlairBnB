@@ -21,7 +21,7 @@ router.get('/current',
             include: [
                 { model: User, attributes: ['id', 'firstName', 'lastName'] },
                 { model: Spot, attributes: { exclude: ['description', 'createdAt', 'updatedAt'] } },
-                { model: ReviewImage, attributes: ['id', 'url'] }
+                { model: ReviewImage, attributes: ['id', 'url'] },
             ]
         });
         const results = [];
@@ -36,11 +36,10 @@ router.get('/current',
                 const previewImage = await SpotsImage.findAll({
                     raw: true,
                     where: { preview: true, spotId: spot.id },
-                    attributes: ['url']
+                    attributes: ['preview', 'url']
                 });
-                if (previewImage.length) spot.previewImage = previewImage[0].url;
-                if (!previewImage.length) spot.previewImage = null;
-                console.log(spot, 'WOIEJFOIWEJFOIWJEFOIWJEFOIJ');
+                if (previewImage.length) review.Spot.previewImage = previewImage[0].url;
+                if (!previewImage.length) review.Spot.previewImage = null;
             }
 
             results.push(review);
