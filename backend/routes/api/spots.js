@@ -297,7 +297,7 @@ router.post('/:spotId/reviews',
             spot = spot.toJSON();
 
             for (let reviews of spot.Reviews) {
-                if (ownerId === reviews.spotId) {
+                if (ownerId === reviews.userId) {
                     return true;
                 }
             }
@@ -305,12 +305,12 @@ router.post('/:spotId/reviews',
         };
 
         // Review from the current user already exists for the Spot
-        if (matchReview(spot, req.user.id)) {
+        if (matchReview(spot, user.id)) {
             return res.json({ message: "User already has a review for this spot", statusCode: 403 });
         };
 
         const newReview = await Review.create({
-            userId: req.user.id,
+            userId: user.id,
             spotId: spot.id,
             review,
             stars
