@@ -5,8 +5,21 @@ const { User, SpotsImage, Spot, ReviewImage, Review, Booking} = require('../../d
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { Sequelize } = require("sequelize");
-
 const router = express.Router();
+
+const validateNewReview = [
+    check('review')
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .isString()
+        .withMessage('Review text is required'),
+    check('stars')
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .isInt({ min: 1, max: 5 })
+        .withMessage('Stars must be an integer from 1 to 5'),
+    handleValidationErrors
+];
 
 // Get all Reviews of the Current User
 router.get('/current',
@@ -71,6 +84,43 @@ router.post('/:reviewId/images',
         };
 
         res.json(result)
+    });
+
+// Edit a Review
+router.put('/:reviewId',
+    requireAuth,
+    validateNewReview,
+    async (req, res) => {
+        let { review, stars } = req.body;
+        // Authorization
+        let findUser = await User.findByPk(req.user.id);
+        const editReview = await Review.findByPk(req.params.reviewId);
+        findUser = findUser.toJSON();
+        if (!editReview) res.json({ message: "Review couldn't be found" , statusCode: 404 });
+        if (findUser.id !== editReview.userId) res.json({ message: "Only the owner of the review is authorized to add an image", statusCode: 403 });
+
+        editReview.update({
+            review,
+            stars
+        });
+
+        return res.json(editReview)
+    });
+
+//Delete a Review
+router.delete('/:reviewId',
+    requireAuth,
+    async (req, res) => {
+        // Authorization
+        let findUser = await User.findByPk(req.user.id);
+        const deleteReview = await Review.findByPk(req.params.reviewId);
+        findUser = findUser.toJSON();
+        if (!deleteReview) res.json({ message: "Review couldn't be found" , statusCode: 404 });
+        if (findUser.id !== deleteReview.userId) res.json({ message: "Only the owner of the review is authorized to add an image", statusCode: 403 });
+
+        await deleteReview.destroy();
+
+        res.json({ message: "Successfully deleted", statusCode: 200 })
     });
 
 module.exports = router;
