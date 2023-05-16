@@ -370,7 +370,42 @@ router.get('/:spotId/bookings',
 router.post('/:spotId/newBooking',
     requireAuth,
     async (req, res) => {
+        let { startDate, endDate } = req.body;
+        // Authorization
+        let findUser = await User.findByPk(req.user.id);
+        let findSpot = await Spot.findByPk(req.params.spotId);
+        findUser = findUser.toJSON();
+        if (!findSpot) res.json({ message: "Spot couldn't be found", statusCode: 404 })
+        if (findUser.id === findSpot.ownerId) res.json({ message: "A user is only authorized to create a booking if they do NOT own the spot", statusCode: 420 });
 
+        if (startDate > endDate) res.json({ message: "Validation Error", statusCode: 400, errors: { endDate: "endDate cannot be on or before startDate" }});
+
+        let checkBooking = await Booking.findAll({ where: { spotId: req.params.spotId } });
+        for (let thisBooking of checkBooking) {
+            let bookedStart = Date.parse(thisBooking.dataValues.startDate);
+            let bookedEnd = Date.parse(thisBooking.dataValues.endDate);
+            let checkStart = Date.parse(startDate);
+            let checkEnd = Date.parse(endDate);
+            if ((bookedStart >= checkStart && bookedEnd <= checkEnd) || (bookedStart <= checkEnd && bookedEnd >= checkStart)) {
+                return res.json({
+                    message: "Sorry, this spot is already booked for the specified dates",
+                    statusCode: 403,
+                    errors: {
+                        startDate: "Start date conflicts with an existing booking",
+                        endDate: "End date conflicts with an existing booking"
+                    }
+                })
+            }
+        }
+
+        const newBooking = await Booking.create({
+            spotId: findSpot.id,
+            userId: findUser.id,
+            startDate,
+            endDate
+        });
+
+        return res.json(newBooking)
     });
 
 
