@@ -53,7 +53,7 @@ router.get('/current',
                 });
                 if (previewImage.length) review.Spot.previewImage = previewImage[0].url;
                 if (!previewImage.length) review.Spot.previewImage = null;
-            }
+            };
 
             results.push(review);
         }

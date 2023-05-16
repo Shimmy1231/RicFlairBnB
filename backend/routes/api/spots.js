@@ -326,4 +326,52 @@ router.post('/:spotId/reviews',
         return res.json(newReview)
     })
 
+// Get all Bookings for a Spot based on the Spot's id
+router.get('/:spotId/bookings',
+    requireAuth,
+    async (req, res) => {
+        const results = [];
+        const spot = await Spot.findByPk(req.params.spotId);
+        if (!spot) res.json({ message: "Spot couldn't be found", statusCode: 404 });
+
+        // Authorization
+        let findUser = await User.findByPk(req.user.id);
+        const findSpot = await Spot.findByPk(req.params.spotId);
+        findUser = findUser.toJSON();
+
+        // Is the Owner
+        if (findUser.id === findSpot.ownerId) {
+            const allBookings = await Booking.findAll({
+                where: { spotId: req.params.spotId },
+                include: [{
+                    model: User,
+                    attributes: ['id', 'firstName', 'lastName']
+                }]
+            });
+
+            results.push(allBookings)
+        }
+
+        // Is NOT the Owner
+        else {
+            const justBookings = await Booking.findAll({
+                where: { spotId: req.params.spotId },
+                attributes: {
+                    exclude: [ 'id', 'userId', 'createdAt', 'updatedAt'] }
+
+            });
+            results.push(justBookings)
+        };
+
+        return res.json({ Bookings: results })
+    });
+
+// Create a Booking from a Spot based on the Spot's id
+router.post('/:spotId/newBooking',
+    requireAuth,
+    async (req, res) => {
+
+    });
+
+
 module.exports = router;

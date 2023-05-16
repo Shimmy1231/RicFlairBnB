@@ -4,7 +4,7 @@ const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
 const spotsRouter = require('./spots.js');
 const reviewsRouter = require('./reviews.js');
-// const bookingsRouter = require('./bookings.js');
+const bookingsRouter = require('./bookings.js');
 const spotImagesRouter = require('./spots-images.js');
 const reviewImagesRouter = require('./review-images.js');
 
@@ -23,7 +23,7 @@ router.use('/spots', spotsRouter);
 
 router.use('/reviews', reviewsRouter);
 
-// router.use('/bookings', bookingsRouter);
+router.use('/bookings', bookingsRouter);
 
 router.use('/spotImages', spotImagesRouter);
 
