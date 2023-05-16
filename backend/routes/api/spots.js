@@ -261,8 +261,6 @@ router.delete('/:spotId',
         if(!deleteSpot) res.json({ message: "Spot couldn't be found", statusCode: 404 });
         if (findUser.id !== deleteSpot.ownerId) res.json({ message: "Forbidden", statusCode: 403 });
 
-        if(!deleteSpot) res.json({ message: "Spot couldn't be found", statusCode: 404 });
-
         await deleteSpot.destroy();
 
         res.json({ message: "Successfully deleted", statusCode: 200})
@@ -407,6 +405,7 @@ router.post('/:spotId/newBooking',
 
         return res.json(newBooking)
     });
+
 
 
 module.exports = router;
