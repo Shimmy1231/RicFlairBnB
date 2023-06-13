@@ -21,6 +21,7 @@ const validateNewReview = [
     handleValidationErrors
 ];
 
+
 const validateNewSpot = [
     check('address')
       .exists({ checkFalsy: true })
