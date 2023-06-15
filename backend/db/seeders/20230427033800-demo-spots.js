@@ -22,7 +22,7 @@ module.exports = {
         lat: 37.25,
         lng: 119.75,
         name: "Binky Tinklehoff",
-        description: "Luxurious Penthouse with Panoramic Views: This stunning penthouse apartment boasts breathtaking views of the city skyline from its floor-to-ceiling windows. The modern decor is complemented by plush furnishings and top-of-the-line amenities, making it the perfect choice for discerning travelers.",
+        description: "Luxurious Penthouse with Panoramic Views",
         price: 1998,
       },
       {
@@ -34,7 +34,7 @@ module.exports = {
         lat: 40.71,
         lng: 74.00,
         name: "Wanda Bologna",
-        description: "Private Mansion with Pool and Gardens: This sprawling estate is nestled on several acres of landscaped gardens and boasts a sparkling pool, hot tub, and multiple outdoor lounging areas. The interior is just as impressive, with high-end finishes and elegant furnishings throughout.",
+        description: "Private Mansion with Pool and Gardens",
         price: 2525,
       },
       {
@@ -46,7 +46,7 @@ module.exports = {
         lat: 27.76,
         lng: 81.69,
         name: "Fanny McFluffernutter",
-        description: "Seaside Villa with Infinity Pool: This stunning villa is perched on a cliff overlooking the ocean, with sweeping views of the coastline. The infinity pool seems to merge seamlessly with the sea, creating a sense of tranquil luxury that's hard to beat.",
+        description: "Seaside Villa with Infinity Pool.",
         price: 3636,
       }
     ], {});
