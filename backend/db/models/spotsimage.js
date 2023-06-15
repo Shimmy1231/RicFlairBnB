@@ -27,9 +27,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'Spots',
+        model: 'Spot',
         key: 'id'
-      }
+      },
+      onDelete: "CASCADE"
     },
     preview: {
       type: DataTypes.BOOLEAN,
