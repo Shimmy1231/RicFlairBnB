@@ -40,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: "CASCADE"
     },
     review: {
-      type: DataTypes.TEXT,
+      type: DataTypes.TEXT('long'),
       allowNull: false,
     },
     stars: {
