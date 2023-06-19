@@ -116,7 +116,7 @@ router.delete('/:reviewId',
         const deleteReview = await Review.findByPk(req.params.reviewId);
         findUser = findUser.toJSON();
         if (!deleteReview) res.json({ message: "Review couldn't be found" , statusCode: 404 });
-        if (findUser.id !== deleteReview.userId) res.json({ message: "Only the owner of the review is authorized to add an image", statusCode: 403 });
+        if (findUser.id !== deleteReview.userId) res.json({ message: "Only the owner of the review is authorized", statusCode: 403 });
 
         await deleteReview.destroy();
 
