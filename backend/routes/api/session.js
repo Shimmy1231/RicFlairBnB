@@ -52,8 +52,8 @@ router.post(
         username: user.username,
       };
 
-      const token = await setTokenCookie(res, safeUser);
-      safeUser.token = token;
+      // const token = await setTokenCookie(res, safeUser);
+      // safeUser.token = token;
       return res.json({
         user: safeUser
       });
