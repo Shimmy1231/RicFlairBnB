@@ -57,24 +57,24 @@ router.put('/:bookingId',
 
         if (startDate > endDate) res.json({ message: "Validation Error", statusCode: 400, errors: { endDate: "endDate cannot come before startDate" }});
 
-        let checkBooking = await Booking.findAll({ where: { id: req.params.bookingId } });
-        for (let thisBooking of checkBooking) {
-            let bookedStart = Date.parse(thisBooking.dataValues.startDate);
-            let bookedEnd = Date.parse(thisBooking.dataValues.endDate);
-            let checkStart = Date.parse(startDate);
-            let checkEnd = Date.parse(endDate);
-            if (bookedEnd > checkEnd) res.json({ message: "Past bookings can't be modified", statusCode: 403 });
-            if ((bookedStart >= checkStart && bookedEnd <= checkEnd) || (bookedStart <= checkEnd && bookedEnd >= checkStart)) {
-                return res.json({
-                    message: "Sorry, this spot is already booked for the specified dates",
-                    statusCode: 403,
-                    errors: {
-                        startDate: "Start date conflicts with an existing booking",
-                        endDate: "End date conflicts with an existing booking"
-                    }
-                })
-            }
-        };
+        // let checkBooking = await Booking.findAll({ where: { id: req.params.bookingId } });
+        // for (let thisBooking of checkBooking) {
+        //     let bookedStart = Date.parse(thisBooking.dataValues.startDate);
+        //     let bookedEnd = Date.parse(thisBooking.dataValues.endDate);
+        //     let checkStart = Date.parse(startDate);
+        //     let checkEnd = Date.parse(endDate);
+        //     if (bookedEnd > checkEnd) res.json({ message: "Past bookings can't be modified", statusCode: 403 });
+        //     if ((bookedStart >= checkStart && bookedEnd <= checkEnd) || (bookedStart <= checkEnd && bookedEnd >= checkStart)) {
+        //         return res.json({
+        //             message: "Sorry, this spot is already booked for the specified dates",
+        //             statusCode: 403,
+        //             errors: {
+        //                 startDate: "Start date conflicts with an existing booking",
+        //                 endDate: "End date conflicts with an existing booking"
+        //             }
+        //         })
+        //     }
+        // };
 
         editBooking.update({
             startDate,
