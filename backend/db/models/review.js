@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // One to Many relationship of a User having many Reviews
-      Review.belongsTo(models.User, { foreinKey: 'userId' });
+      Review.belongsTo(models.User, { foreignKey: 'userId' });
 
       // One to Many relationship of a Spot having many Reviews
       Review.belongsTo(models.Spot, { foreignKey: 'spotId' });
