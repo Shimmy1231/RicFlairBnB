@@ -7,7 +7,7 @@ const { setTokenCookie, requireAuth, restoreUser } = require("../../utils/auth")
 
 router.delete('/:reviewImageId',
     requireAuth,
-    async (req, res, next) => {
+    async (req, res) => {
     let deletedImage = await ReviewImage.findByPk(req.params.reviewImageId);
     if (!deletedImage) res.json({ message: "Review Image couldn't be found", statusCode: 404 });
     await deletedImage.destroy();
