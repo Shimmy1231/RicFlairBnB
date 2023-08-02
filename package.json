@@ -4,6 +4,7 @@
   "description": "## Database Schema Design",
   "main": "index.js",
   "scripts": {
+    "render-postbuild": "npm run store --prefix frontend",
     "install": "npm --prefix backend install backend",
     "dev:backend": "npm install --prefix backend start",
     "sequelize": "npm run --prefix backend sequelize",
@@ -23,6 +24,14 @@
   },
   "homepage": "https://github.com/Shimmy1231/RicFlairBnB#readme",
   "dependencies": {
-    "bcryptjs": "^2.4.3"
+    "bcryptjs": "^2.4.3",
+    "js-cookie": "^3.0.5",
+    "react-redux": "^8.1.2",
+    "react-router-dom": "^5.3.4",
+    "redux": "^4.2.1",
+    "redux-thunk": "^2.4.2"
+  },
+  "devDependencies": {
+    "redux-logger": "^3.0.6"
   }
 }
