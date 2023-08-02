@@ -16,18 +16,18 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 function Root() {
-    return (
-      <Provider store={store}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </Provider>
-    );
-  }
-
-  ReactDOM.render(
-    <React.StrictMode>
-      <Root />
-    </React.StrictMode>,
-    document.getElementById('root'),
+  return (
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
   );
+}
+
+ReactDOM.render(
+  <React.StrictMode>
+    <Root />
+  </React.StrictMode>,
+  document.getElementById('root'),
+);
