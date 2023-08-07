@@ -14,7 +14,7 @@ function AddSpot() {
     const [state, setState] = useState('');
     const [country, setCountry] = useState('');
     const [description, setDescription] = useState('');
-    let [price, setPrice] = useState('');
+    const [price, setPrice] = useState('');
     const [url, setUrl] = useState('');
     const [lat, setLat] = useState('');
     const [lng, setLng] = useState('');
@@ -41,7 +41,6 @@ function AddSpot() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setSubmitted(true);
-        price = parseInt(price);
         if (!errors.length) {
           const potentialSpot = { name, address, city, state, country, description, price, url, lat, lng };
           const newSpot = await dispatch(addingSpot(potentialSpot));

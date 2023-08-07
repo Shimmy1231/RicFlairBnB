@@ -7,7 +7,7 @@ const DELETE_REVIEW = "reviews/deleteReview";
 const loadAllReviews = (reviews) => {
     return {
         type: GET_REVIEWS,
-        reviews
+        payload: reviews
     }
 };
 
@@ -20,8 +20,8 @@ const deleteReview = () => ({
     type: DELETE_REVIEW
 });
 
-export const getCurrentReviews = () => async (dispatch) => {
-    const response = await csrfFetch("api/reviews/current", {
+export const getCurrentReviews = (spotId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
         method: "GET"
     });
     if (response.ok) {
@@ -32,7 +32,7 @@ export const getCurrentReviews = () => async (dispatch) => {
 };
 
 export const addingReview = (review, spotId) => async (dispatch) => {
-    const response = await csrfFetch(`api/spots/${spotId}/reviews`, {
+    const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
         method: "POST",
         body: JSON.stringify({
             review
@@ -46,7 +46,7 @@ export const addingReview = (review, spotId) => async (dispatch) => {
 };
 
 export const deletingReview = (reviewId) => async (dispatch) => {
-    const response = await csrfFetch(`api/reviews/${reviewId}`,{
+    const response = await csrfFetch(`/api/reviews/${reviewId}`,{
         method: "DELETE"
     });
     if (response.ok) {
@@ -63,7 +63,7 @@ const reviewsReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_REVIEWS:
             newState = Object.assign({}, state);
-            newState.allReviews = action.reviews;
+            newState.allReviews = action.payload;
             return newState;
         case ADD_REVIEW:
             newState = Object.assign({}, state);

@@ -8,6 +8,7 @@ import Navigation from "./components/Navigation";
 
 import GetAllSpots from "./components/Spots/GetAllSpots";
 import AddSpot from "./components/Spots/AddSpot";
+import GetSpotDetails from "./components/Spots/GetSpotDetails";
 
 function App() {
   const dispatch = useDispatch();
@@ -26,6 +27,9 @@ function App() {
           </Route>
           <Route path="/spots/new" exact>
             <AddSpot />
+          </Route>
+          <Route path="/spots/:spotId" exact>
+            <GetSpotDetails />
           </Route>
           <Route path="/login">
             <LoginFormModal />

@@ -4,6 +4,7 @@ const GET_SPOTS = "spots/getSpots";
 const GET_ONE_SPOT = "spots/getOneSpot";
 const UPDATE_SPOT = "spots/updateSpot";
 const ADD_SPOT = "spots/addSpot";
+const GET_SPOT_DETAILS = "spots/spotDetails";
 const DELETE_SPOT = "spots/deleteSpot";
 
 const loadAllSpots = (spots) => {
@@ -32,12 +33,17 @@ const addSpot = (spots) => ({
     payload: spots
 });
 
+const loadSpotDetails = (spots) => ({
+    type: GET_SPOT_DETAILS,
+    spots
+})
+
 const deleteSpot = () => ({
     type: DELETE_SPOT
 });
 
 export const getAllSpots = () => async (dispatch) => {
-    const response = await csrfFetch("api/spots", {
+    const response = await csrfFetch("/api/spots", {
         method: "GET",
     });
     if (response.ok) {
@@ -48,7 +54,7 @@ export const getAllSpots = () => async (dispatch) => {
 };
 
 export const getOneSpot = (spotId) => async (dispatch) => {
-    const response = await csrfFetch(`api/spots/${spotId}`, {
+    const response = await csrfFetch(`/api/spots/${spotId}`, {
         method: "GET"
     });
     if (response.ok) {
@@ -60,7 +66,7 @@ export const getOneSpot = (spotId) => async (dispatch) => {
 export const updatingSpot = (spot, spotId) => async (dispatch) => {
     const { url } = spot;
 
-    const response = await csrfFetch(`api/spots/${spotId}`, {
+    const response = await csrfFetch(`/api/spots/${spotId}`, {
         method: "PUT",
         body: JSON.stringify({
             spot
@@ -69,7 +75,7 @@ export const updatingSpot = (spot, spotId) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
 
-        const spotIdResponse = await csrfFetch(`api/spots/${spot.id}/images`, {
+        const spotIdResponse = await csrfFetch(`/api/spots/${spot.id}/images`, {
             method: "POST",
             body: JSON.stringify({
                 url,
@@ -114,8 +120,19 @@ export const addingSpot = (spot) => async (dispatch) => {
     };
 };
 
+export const spottingDetails = (spotId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/spots/${spotId}`, {
+        method: "GET"
+    });
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(loadSpotDetails(data));
+        return data;
+    }
+}
+
 export const deletingSpot = (spotId) => async (dispatch) => {
-    const response = await csrfFetch(`api/spots/${spotId}`, {
+    const response = await csrfFetch(`/api/spots/${spotId}`, {
         method: "DELETE"
     });
     if (response.ok) {
@@ -145,6 +162,10 @@ const spotsReducer = (state = initialState, action) => {
         case ADD_SPOT:
             newState = Object.assign({}, state);
             newState.spot = action.payload;
+            return newState;
+        case GET_SPOT_DETAILS:
+            newState = Object.assign({}, state);
+            newState.spot = action.spots;
             return newState;
         case DELETE_SPOT:
             newState = Object.assign({}, state);

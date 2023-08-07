@@ -6,15 +6,14 @@ import "./GetAllSpots.css";
 
 function GetAllSpots() {
     const dispatch = useDispatch();
-    const spots = useSelector(state => {
-        return state.spots.allSpots;
-    });
+    const spots = useSelector(state => state.spots.allSpots);
     const [isLoaded, setIsLoaded] = useState(false);
     useEffect(() => {
         dispatch(getAllSpots()).then(() => setIsLoaded(true));
     }, [dispatch]);
 
     if (!spots) return null;
+
     const data = Object.values(spots).map(spot => {
         return (
             <div className="all-spots">
