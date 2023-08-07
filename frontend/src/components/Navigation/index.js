@@ -8,8 +8,13 @@ import SignupFormModal from "../SignupFormModal";
 import "./Navigation.css";
 
 function Navigation({ isLoaded }) {
-const [showOptions, setShowOptions] = useState(false);
+  const [showOptions, setShowOptions] = useState(false);
+  const [spotId, setSpotId] = useState("");
+  const [inputs, setInputs] = useState("");
+  const [filteredData, setFilteredData] = useState([])
   const sessionUser = useSelector((state) => state.session.user);
+  const spotsData = useSelector((state) => state.spots.allSpots);
+
 
   let sessionLinks;
   if (sessionUser) {
@@ -29,6 +34,7 @@ const [showOptions, setShowOptions] = useState(false);
           buttonText="Sign Up"
           modalComponent={<SignupFormModal />}
         />
+        <ProfileButton user={null} />
       </li>
     );
     }

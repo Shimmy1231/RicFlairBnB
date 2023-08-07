@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
-// import SignupForm from "./components/SignupFormModal";
 import * as sessionActions from "./store/session";
+import LoginFormModal from "./components/LoginFormModal";
+import SignupFormModal from "./components/SignupFormModal";
 import Navigation from "./components/Navigation";
 
 import GetAllSpots from "./components/Spots/GetAllSpots";
+import AddSpot from "./components/Spots/AddSpot";
 
 function App() {
   const dispatch = useDispatch();
@@ -22,9 +24,15 @@ function App() {
           <Route path="/" exact>
             <GetAllSpots />
           </Route>
-          {/* <Route path="/signup">
-            <SignupForm />
-          </Route> */}
+          <Route path="/spots/new" exact>
+            <AddSpot />
+          </Route>
+          <Route path="/login">
+            <LoginFormModal />
+          </Route>
+          <Route path="/signup">
+            <SignupFormModal />
+          </Route>
         </Switch>
       )}
     </>

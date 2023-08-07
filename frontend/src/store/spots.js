@@ -87,9 +87,9 @@ export const updatingSpot = (spot, spotId) => async (dispatch) => {
 
 export const addingSpot = (spot) => async (dispatch) => {
     const { url } = spot;
-
-    const response = await csrfFetch(`api/spots/${spot}`, {
+    const response = await csrfFetch("/api/spots", {
         method: "POST",
+        headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
             spot
         })
@@ -97,9 +97,9 @@ export const addingSpot = (spot) => async (dispatch) => {
 
     if (response.ok) {
         const data = await response.json();
-
-        const spotIdResponse = await csrfFetch(`api/spots/${spot.id}/images`, {
+        const spotIdResponse = await csrfFetch(`/api/spots/${data.id}/images`, {
             method: "POST",
+            headers: {"Content-Type": "application/json"},
             body: JSON.stringify({
                 url,
                 preview: true
@@ -108,9 +108,9 @@ export const addingSpot = (spot) => async (dispatch) => {
         if (spotIdResponse.ok) {
             const chosenSpotImage = await spotIdResponse.json();
             spot.SpotsImage = [chosenSpotImage];
-            dispatch(addSpot(data));
-            return data;
         };
+        dispatch(addSpot(data));
+        return data;
     };
 };
 

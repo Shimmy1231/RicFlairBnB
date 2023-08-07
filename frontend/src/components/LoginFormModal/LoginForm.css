@@ -2,8 +2,6 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    height: 250vh;
-    width: 30vw;
 }
 
 .login-modal-fail {
@@ -11,26 +9,21 @@
 }
 
 .login-username-or-email {
-    width: 250%;
     margin-top: -20px;
     margin-left: 20px;
     margin-right: 20px;
     margin-bottom: 10px;
-    height: 40px;
     border-radius: 5px;
 }
 
 .login-password {
-    width: 250%;
     margin-left: 20px;
     margin-right: 20px;
     margin-bottom: 10px;
-    height: 40px;
     border-radius: 5px;
 }
 
 .login-button {
-    width: 480%;
     margin-left: 20px;
     margin-right: 20px;
     margin-bottom: 10px;

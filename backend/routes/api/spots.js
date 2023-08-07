@@ -61,7 +61,6 @@ const validateNewSpot = [
     check('price')
       .exists({ checkFalsy: true })
       .notEmpty()
-      .isFloat()
       .withMessage('Price per day is required'),
     handleValidationErrors
   ];
@@ -177,9 +176,9 @@ router.get('/:spotId',
 // Create a Spot
 router.post('/',
     requireAuth,
-    validateNewSpot,
+    // validateNewSpot,
         async (req, res) => {
-           let { address, city, state, country, lat, lng, name, description, price } = req.body;
+           let { address, city, state, country, lat, lng, name, description, price } = req.body.spot;
            const newSpot = await Spot.create({
             ownerId: req.user.id,
             address,

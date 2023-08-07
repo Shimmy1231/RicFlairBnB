@@ -1,0 +1,51 @@
+.add-spot-form-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.add-spot-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 80%;
+    width: 40%;
+}
+
+.show-and-tell {
+    font-weight: 500;
+}
+
+.thinking-about-adding-spot {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.add-spot-form-label {
+    text-align: center;
+    margin-bottom: 10px;
+    width: 80%;
+}
+
+.adding-spot-inputs {
+    margin-bottom: 10px;
+    width: 60%;
+}
+
+.adding-new-spot-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.create-new-spot-button {
+    justify-content: center;
+    margin-top: 20px;
+    height: 50px;
+    width: 250px;
+    color: orange;
+}
