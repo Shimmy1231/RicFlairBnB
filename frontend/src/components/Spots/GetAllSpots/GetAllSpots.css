@@ -1,0 +1,14 @@
+.all-spots {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.single-spot-link {
+    flex: 5;
+}
+
+.single-spot-display {
+    display: flex;
+    flex-direction: row;
+}

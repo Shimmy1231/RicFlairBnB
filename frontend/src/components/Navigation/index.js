@@ -8,7 +8,7 @@ import SignupFormModal from "../SignupFormModal";
 import "./Navigation.css";
 
 function Navigation({ isLoaded }) {
-const [showDropDown, setShowDropDown] = useState(false);
+const [showOptions, setShowOptions] = useState(false);
   const sessionUser = useSelector((state) => state.session.user);
 
   let sessionLinks;
@@ -34,15 +34,15 @@ const [showDropDown, setShowDropDown] = useState(false);
     }
 
     useEffect(() => {
-        if (!showDropDown) return;
+        if (!showOptions) return;
 
-        const closeDropDown = () => {
-            setShowDropDown(false);
+        const closeOptions = () => {
+            setShowOptions(false);
         };
-        document.addEventListener("click", closeDropDown)
+        document.addEventListener("click", closeOptions)
 
-        return () => document.removeEventListener("click", closeDropDown)
-    }, [showDropDown]);
+        return () => document.removeEventListener("click", closeOptions)
+    }, [showOptions]);
 
 
   return (

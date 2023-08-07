@@ -5,6 +5,8 @@ import SignupForm from "./components/SignupFormModal";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 
+import GetAllSpots from "./components/Spots/GetAllSpots";
+
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -17,7 +19,9 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-
+          <Route path="/" exact>
+            <GetAllSpots />
+          </Route>
           <Route path="/signup">
             <SignupForm />
           </Route>

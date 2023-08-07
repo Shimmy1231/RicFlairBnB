@@ -1,4 +1,4 @@
-import { csrfFetch } from ".csrf";
+import { csrfFetch } from "./csrf";
 
 const GET_CURRENT_BOOKINGS = "bookings/getCurrentBookings";
 const ADD_BOOKING = "bookings/addBooking";
