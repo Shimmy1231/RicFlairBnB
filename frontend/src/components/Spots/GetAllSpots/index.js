@@ -12,29 +12,39 @@ function GetAllSpots() {
     const [isLoaded, setIsLoaded] = useState(false);
     useEffect(() => {
         dispatch(getAllSpots()).then(() => setIsLoaded(true));
-      }, [dispatch]);
+    }, [dispatch]);
 
     if (!spots) return null;
-    console.log(spots);
-    const data = spots.Spots.map(spot => {
+    const data = Object.values(spots).map(spot => {
         return (
             <div className="all-spots">
                 <NavLink to={`/spots/${spot.id}`} className="single-spot-link">
-                    <div className="single-spot-display">
-                        <div>
-
-                        </div>
+                    <div>
+                        <img src={spot.previewImage} alt='usethisimage' className="each-spot-image"/>
+                    </div>
+                    <div key={spot.name} className="display-city-and-state">
+                        {spot.city}, {spot.state}
+                    </div>
+                    <div className="all-spots-avgStars">
+                        {spot.avgStarRating}
+                    </div>
+                    <div className="all-spots-availability">
+                        August 13 - 20
+                    </div>
+                    <div className="all-spots-pricing">
+                        {spot.price}
                     </div>
                 </NavLink>
             </div>
         )
     })
 
-    return (
-        isLoaded && (
-            {data}
+    return isLoaded && (
+            <div className="get-all-spots">
+                {data}
+            </div>
         )
-    )
+
 }
 
 export default GetAllSpots;

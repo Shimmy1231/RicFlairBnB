@@ -114,7 +114,7 @@ export const addingSpot = (spot) => async (dispatch) => {
     };
 };
 
-export const deletingSpot = () => async (dispatch) => {
+export const deletingSpot = (spotId) => async (dispatch) => {
     const response = await csrfFetch(`api/spots/${spotId}`, {
         method: "DELETE"
     });
@@ -132,7 +132,7 @@ const spotsReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_SPOTS:
             newState = Object.assign({}, state);
-            newState.allSpots = action.spots;
+            newState.allSpots = action.spots.Spots;
             return newState;
         case GET_ONE_SPOT:
             newState = Object.assign({}, state);

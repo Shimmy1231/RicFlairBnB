@@ -12,3 +12,41 @@
     display: flex;
     flex-direction: row;
 }
+
+.each-spot-image {
+    object-fit: contain;
+    position: relative;
+    height: 250px;
+    width: 250px;
+    border-radius: 15px;
+}
+
+.get-all-spots {
+    display: flex;
+    justify-content: flex-start;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    padding: 15px 15px;
+    gap: 20px;
+}
+
+.display-city-and-state {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-weight: 777;
+}
+
+.all-spots-avgStars {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.all-spots-availability {
+    margin-top: -15px;
+}
+
+.all-spots-pricing {
+    font-weight: 777;
+}
