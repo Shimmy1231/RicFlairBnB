@@ -23,9 +23,6 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-          <Route path="/" exact>
-            <GetAllSpots />
-          </Route>
           <Route path="/spots/current" exact>
             <PersonalSpots />
           </Route>
@@ -40,6 +37,9 @@ function App() {
           </Route>
           <Route path="/signup">
             <SignupFormModal />
+          </Route>
+          <Route path="/" exact>
+            <GetAllSpots />
           </Route>
         </Switch>
       )}

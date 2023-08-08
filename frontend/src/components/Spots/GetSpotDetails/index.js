@@ -13,7 +13,6 @@ function GetSpotDetails() {
     const spots = useSelector(state => state.spots.spot);
     const reviews = useSelector(state => {
         return state.reviews.allReviews.Reviews});
-        console.log(reviews, typeof reviews, "WOEIJDOIWEJFOIWEJF")
     // const bookings = useSelector(state => Object.values(state.bookings.allBookings));
     const [isLoaded, setIsLoaded] = useState(false);
 

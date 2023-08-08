@@ -24,14 +24,16 @@ function LoginFormModal() {
       });
   };
 
-  const demoUserLogin = (el) => {
+  const demoUserLogin = () => {
     setCredential("demo@user.io")
     setPassword("password")
   };
 
   return (
     <>
-      <h1>Log In</h1>
+    <div className="just-the-background">
+
+      <h1 className="login-text-fancy">Log In</h1>
       <form onSubmit={handleSubmit} className="login-modal-form">
         <label>
           Username or Email
@@ -57,8 +59,9 @@ function LoginFormModal() {
         )}
         </div>
         <button type="submit" className="login-button">Log In</button>
-        <button onClick={demoUserLogin}>Demo User</button>
+        <button className="login-button-for-demo" onClick={demoUserLogin}>Demo User</button>
       </form>
+    </div>
     </>
   );
 }

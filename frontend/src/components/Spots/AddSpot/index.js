@@ -36,7 +36,7 @@ function AddSpot() {
 
     }, [name, address, city, state, country, description, price, url, lat, lng])
 
-    if (!user) history.push("/");
+    // if (!user) history.push("/");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -52,7 +52,6 @@ function AddSpot() {
 
         setErrors({});
         setSubmitted(false);
-
       }
 
       return (

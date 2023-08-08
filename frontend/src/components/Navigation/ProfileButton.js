@@ -11,6 +11,8 @@ function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const [showMenu, setShowMenu] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showSignupModal, setShowSignupModal] = useState(false);
   const ulRef = useRef();
 
   const openMenu = () => {
@@ -58,16 +60,18 @@ function ProfileButton({ user }) {
               <button className="personal-page-button" onClick={logout}>Log Out</button>
             </li>
           </>
-        ) : (
+        ) : showLoginModal && showSignupModal && (
           <>
             <li>
               <OpenModalButton
+                onModalClose={() => setShowLoginModal(false)}
                 buttonText="Log In"
                 modalComponent={<LoginFormModal />}
               />
             </li>
             <li>
               <OpenModalButton
+                onModalClose={() => setShowSignupModal(false)}
                 buttonText="Sign Up"
                 modalComponent={<SignupFormModal />}
               />
