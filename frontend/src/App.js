@@ -7,6 +7,7 @@ import SignupFormModal from "./components/SignupFormModal";
 import Navigation from "./components/Navigation";
 
 import GetAllSpots from "./components/Spots/GetAllSpots";
+import PersonalSpots from "./components/Spots/PersonalSpots";
 import AddSpot from "./components/Spots/AddSpot";
 import GetSpotDetails from "./components/Spots/GetSpotDetails";
 
@@ -24,6 +25,9 @@ function App() {
         <Switch>
           <Route path="/" exact>
             <GetAllSpots />
+          </Route>
+          <Route path="/spots/current" exact>
+            <PersonalSpots />
           </Route>
           <Route path="/spots/new" exact>
             <AddSpot />

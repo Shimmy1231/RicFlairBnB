@@ -24,10 +24,6 @@ function GetSpotDetails() {
         .then(() => setIsLoaded(true))
     }, [dispatch, spotId]);
 
-    // if (!spots && !reviews) return null;
-
-    // const reviewsArr = Object.values(reviews);
-    // let userReviews = reviewsArr.find(review => review.userId === user?.id);
 
     let spotImage;
     if (spots?.SpotsImage) {
@@ -111,7 +107,7 @@ function GetSpotDetails() {
                             Price: ${spots?.price} per Night
                         </div>
                         <div>
-                            {spots?.avgStarRating} · {spots?.numReviews}
+                            ★ {spots?.avgStarRating} · {spots?.numReviews}
                         </div>
                         <button>Book!</button>
                     </div>

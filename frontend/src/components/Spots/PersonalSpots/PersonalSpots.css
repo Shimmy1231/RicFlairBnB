@@ -1,0 +1,73 @@
+.personal-spots-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.personal-spots-title {
+    display: flex;
+    justify-content: center;
+    margin-top: 3%;
+}
+
+.add-new-listing-button {
+    justify-content: center;
+    height: 50px;
+    width: 100px;
+    color: white;
+    background-color: blueviolet;
+}
+
+.personal-spots-list-by-list {
+    display: flex;
+    flex-direction: row;
+    flex: wrap;
+    justify-content: space-evenly;
+    padding: 25px;
+}
+
+.i-own-these-spots {
+    display: flex;
+    flex-direction: column;
+    flex: wrap;
+    justify-content: center;
+    width: 150px;
+    border: 3px solid lightcoral;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.link-to-personal-spots {
+    text-decoration: none;
+}
+
+.personal-spot-picture-single {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.personal-spot-data {
+    display: flex;
+    justify-content: center;
+    width: 200px;
+    color: lightgreen;
+}
+
+.personal-spot-name-and-otherthings {
+    font-weight: 500;
+}
+
+.personal-spot-edit-button {
+    border: 3px solid lightcoral;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.personal-spot-terminate-button {
+    border: 3px solid red;
+    border-radius: 10px;
+    padding: 10px;
+}

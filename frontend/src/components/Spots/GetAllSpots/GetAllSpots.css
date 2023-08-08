@@ -1,5 +1,5 @@
 .all-spots {
-    display: flex;
+    display: inline-grid;
     flex-direction: row;
     justify-content: space-evenly;
 }

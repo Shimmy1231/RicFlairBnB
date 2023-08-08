@@ -2,6 +2,7 @@ import { csrfFetch } from "./csrf";
 
 const GET_SPOTS = "spots/getSpots";
 const GET_ONE_SPOT = "spots/getOneSpot";
+const GET_PERSONAL_SPOT = "spots/getPersonalSpot";
 const UPDATE_SPOT = "spots/updateSpot";
 const ADD_SPOT = "spots/addSpot";
 const GET_SPOT_DETAILS = "spots/spotDetails";
@@ -10,7 +11,7 @@ const DELETE_SPOT = "spots/deleteSpot";
 const loadAllSpots = (spots) => {
     return {
         type: GET_SPOTS,
-        spots
+        payload: spots
     }
 };
 
@@ -62,6 +63,17 @@ export const getOneSpot = (spotId) => async (dispatch) => {
         dispatch(loadOneSpot(data));
     };
 };
+
+export const getPersonalSpot = () => async dispatch => {
+    const response = await csrfFetch("/api/spots/current", {
+        method: "GET"
+    });
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(loadAllSpots(data));
+        return data;
+    }
+}
 
 export const updatingSpot = (spot, spotId) => async (dispatch) => {
     const { url } = spot;
@@ -149,11 +161,15 @@ const spotsReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_SPOTS:
             newState = Object.assign({}, state);
-            newState.allSpots = action.spots.Spots;
+            newState.allSpots = action.payload;
             return newState;
         case GET_ONE_SPOT:
             newState = Object.assign({}, state);
             newState.spot = action.spot;
+            return newState;
+        case GET_PERSONAL_SPOT:
+            newState = Object.assign({}, state);
+            newState.allSpots = action.payload;
             return newState;
         case UPDATE_SPOT:
             newState = Object.assign({}, state);
