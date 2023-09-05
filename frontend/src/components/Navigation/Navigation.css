@@ -10,14 +10,17 @@
 }
 
 #header {
-    height: 20%;
+    height: 30%;
     width: 100%;
     display: flex;
     justify-content: space-between;
-    border: 1px solid lightgrey;
+    position: relative;
+    padding: 3px;
+    border-bottom: 1px solid black;
 }
 
 #create-new-spot {
+    position: relative;
     background-color: #d98f8d;
     border-radius: 4px;
     color: black;

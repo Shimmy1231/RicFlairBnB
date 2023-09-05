@@ -2,13 +2,11 @@
     display: inline-grid;
     flex-direction: row;
     justify-content: space-evenly;
-    border: 3px solid blue;
 }
 
 .single-spot-link {
     flex: 5;
     text-decoration: none;
-    border: 1px solid red;
 }
 
 @media (max-width: 1200px) {

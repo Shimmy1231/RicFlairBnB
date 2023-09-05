@@ -60,22 +60,22 @@ function ProfileButton({ user }) {
             </div>
           </div>
         ) : showMenu && (
-          <>
-            <div id="modal-button">
+          <div id="profile-dropdown-no-user">
+            <button id="modal-button-login">
               <OpenModalButton
                 itemText="Log In"
                 onItemClick={closeMenu}
                 modalComponent={<LoginFormModal />}
               />
-            </div>
-            <div id="modal-button">
+            </button>
+            <button id="modal-button-login">
               <OpenModalButton
                 itemText="Sign Up"
                 onItemClick={closeMenu}
                 modalComponent={<SignupFormModal />}
               />
-            </div>
-          </>
+            </button>
+          </div>
         )}
       </div>
     </>

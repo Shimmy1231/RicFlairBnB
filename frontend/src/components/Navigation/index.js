@@ -21,8 +21,9 @@ function Navigation({ isLoaded }) {
 
   return (
     <div id="header">
-      <div >
+      <div>
         <NavLink exact to="/" id="home-text-fancy">
+        <i class="fa-solid fa-house"></i>
           RicFlairBnB
         </NavLink>
       </div>

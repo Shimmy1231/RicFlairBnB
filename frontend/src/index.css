@@ -1,1 +1,22 @@
 /* TODO Add site wide styles */
+@font-face {
+    font-family: "Light";
+    src: local("Poppins-Thin"),
+        url("./components/fonts/Poppins-Light.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Thick";
+    src: local("Poppins-Thick"),
+        url("./components/fonts/Poppins-ExtraBold.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Bold";
+    src: local("Poppins-Bold"),
+        url("./components/fonts/Poppins-Bold.ttf") format("truetype");
+}
+
+* {
+    font-family: Light
+}
