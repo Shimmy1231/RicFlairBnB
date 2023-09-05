@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from 'react-redux';
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import * as sessionActions from '../../store/session';
 import OpenModalButton from '../OpenModalButton';
 import LoginFormModal from '../LoginFormModal';
@@ -9,10 +9,7 @@ import "./ProfileButton.css";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
-  const history = useHistory();
   const [showMenu, setShowMenu] = useState(false);
-  const [showLoginModal, setShowLoginModal] = useState(false);
-  const [showSignupModal, setShowSignupModal] = useState(false);
   const ulRef = useRef();
 
   const openMenu = () => {
@@ -34,51 +31,53 @@ function ProfileButton({ user }) {
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
 
+  const closeMenu = () => setShowMenu(false);
+
   const logout = (e) => {
     e.preventDefault();
     dispatch(sessionActions.logout());
-    history.push("/");
+    closeMenu();
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
   return (
     <>
-      <button className="profile-icon-button" onClick={openMenu}>
+      <button id="profile-icon-button" onClick={openMenu}>
         <i class="fa-solid fa-city"></i>
       </button>
-      <ul className={ulClassName} ref={ulRef}>
-        {user ? (
-          <>
-            <li>{user.username}</li>
-            <li key={user.username}>{user.firstName} {user.lastName}</li>
-            <li key={user.email}>{user.email}</li>
+      <div className={ulClassName} ref={ulRef}>
+        {user && showMenu ? (
+          <div>
+            <div>Hello, {user.username}</div>
+            <div>{user.firstName} {user.lastName}</div>
+            <div>{user.email}</div>
             <NavLink to="/spots/current">
-              <button>Spots</button>
+              <button id="personal-page-button">Manage Spots</button>
             </NavLink>
-            <li>
-              <button className="personal-page-button" onClick={logout}>Log Out</button>
-            </li>
-          </>
-        ) : showLoginModal && showSignupModal && (
+            <div>
+              <button onClick={logout} id="logout-button">Log Out</button>
+            </div>
+          </div>
+        ) : showMenu && (
           <>
-            <li>
+            <div id="modal-button">
               <OpenModalButton
-                onModalClose={() => setShowLoginModal(false)}
-                buttonText="Log In"
+                itemText="Log In"
+                onItemClick={closeMenu}
                 modalComponent={<LoginFormModal />}
               />
-            </li>
-            <li>
+            </div>
+            <div id="modal-button">
               <OpenModalButton
-                onModalClose={() => setShowSignupModal(false)}
-                buttonText="Sign Up"
+                itemText="Sign Up"
+                onItemClick={closeMenu}
                 modalComponent={<SignupFormModal />}
               />
-            </li>
+            </div>
           </>
         )}
-      </ul>
+      </div>
     </>
   );
 }

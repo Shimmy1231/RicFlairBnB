@@ -1,23 +1,22 @@
-.just-the-background {
-    display: inline-block;
+#just-the-background {
+    display: block;
+    padding: 1em 2em;
+    border: solid 2px black;
     background-color: #007BFF;
 }
-.login-text-fancy {
+
+#login-text-fancy {
     padding: 10px 15px;
     background-color: #d5ab57;
-    color: #fff;
-    border: none;
     border-radius: 4px;
-    margin: 50px auto;
-    transition: background-color 0.2s ease;
     color: black;
-    font-weight: 900;
+    font-weight: bold;
 }
 
 .login-modal-form {
     height: 600px auto;
     width: 300px;
-    margin: 50px auto;
+    margin: 30px auto;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -26,11 +25,12 @@
     margin-bottom: 15px;
 }
 
-.login-modal-fail {
+#login-modal-fail {
     margin-bottom: 25px;
 }
 
-.login-username-or-email {
+#login-username-or-email {
+    display: block;
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
@@ -38,7 +38,7 @@
     box-sizing: border-box;
 }
 
-.login-password {
+#login-password {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
@@ -46,22 +46,20 @@
     box-sizing: border-box;
 }
 
-.login-button {
+#login-button {
     padding: 10px 15px;
     background-color: #007BFF;
     color: #fff;
-    border: none;
+    border: groove gray;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.2s ease;
 }
 
-.login-button-for-demo {
+#login-button-for-demo {
     padding: 10px 15px;
     background-color: #ca4389;
     color: #fff;
-    border: none;
+    border: groove gray;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.2s ease;
 }

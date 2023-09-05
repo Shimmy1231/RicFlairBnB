@@ -10,6 +10,8 @@ function LoginFormModal() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
+  const [credentialLength, setCredentialLength] = useState(0);
+  const [passwordLength, setPasswordLength] = useState(0);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,37 +31,47 @@ function LoginFormModal() {
     setPassword("password")
   };
 
+  const handleCredChange = (e) => {
+    setCredential(e.target.value);
+    setCredentialLength(e.target.value.length);
+  };
+
+  const handlePwChange = (e) => {
+    setPassword(e.target.value);
+    setPasswordLength(e.target.value.length)
+  };
+
   return (
     <>
-    <div className="just-the-background">
+    <div id="just-the-background">
 
-      <h1 className="login-text-fancy">Log In</h1>
+      <label id="login-text-fancy">Welcome to RicFlairBnB</label>
       <form onSubmit={handleSubmit} className="login-modal-form">
         <label>
           Username or Email
-          <input className="login-username-or-email"
+          <input id="login-username-or-email"
             type="text"
             value={credential}
-            onChange={(e) => setCredential(e.target.value)}
+            onChange={handleCredChange}
             required
           />
         </label>
         <label>
           Password
-          <input className="login-password"
+          <input id="login-password"
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handlePwChange}
             required
           />
         </label>
-        <div className="login-modal-fail">
+        <div id="login-modal-fail">
         {errors.credential && (
           <p>{errors.credential}</p>
         )}
         </div>
-        <button type="submit" className="login-button">Log In</button>
-        <button className="login-button-for-demo" onClick={demoUserLogin}>Demo User</button>
+        <button type="submit" id="login-button" disabled={credentialLength < 4 || passwordLength < 6}>Log In</button>
+        <button id="login-button-for-demo" onClick={demoUserLogin}>Demo User</button>
       </form>
     </div>
     </>

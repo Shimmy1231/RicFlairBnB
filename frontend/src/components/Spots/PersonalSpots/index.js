@@ -19,9 +19,6 @@ function PersonalSpots() {
         <>
         <div className="personal-spots-box">
             <h1 className="personal-spots-title">My Spots</h1>
-            <NavLink to={"/spots/add"}>
-                <button className="add-new-listing-button">Add A Listing</button>
-            </NavLink>
             <div className="personal-spots-list-by-list">
                 {spotsArr.map((e) => (
                     <div className="i-own-these-spots" key={e.id}>

@@ -1,0 +1,29 @@
+#home-text-fancy {
+    background-color: #e4716f;
+    border-radius: 4px;
+    color: black;
+    font-weight: bold;
+    margin: 10px auto;
+    cursor: pointer;
+    padding: 4px;
+    text-decoration: none;
+}
+
+#header {
+    height: 20%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid lightgrey;
+}
+
+#create-new-spot {
+    background-color: #d98f8d;
+    border-radius: 4px;
+    color: black;
+    font-weight: bold;
+    margin: 10px auto;
+    cursor: pointer;
+    padding: 4px;
+    text-decoration: none;
+}

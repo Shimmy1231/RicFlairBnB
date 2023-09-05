@@ -1,51 +1,48 @@
-.add-spot-form-box {
+.add-spot-form-container {
     display: flex;
     flex-direction: column;
+    justify-content:center;
     align-items: center;
-    height: 100%;
-    width: 100%;
+    height: 90%;
 }
 
 .add-spot-form {
+    background-color: lightcoral;
+    border: 1px solid blue;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 1);
+    width: 30%;
+    text-align: left;
+}
+
+#location-font {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+}
+
+#description-font {
+    font-size: 12px;
+    margin: 0;
+}
+
+label {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+#submit-addspot {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 80%;
-    width: 40%;
-}
-
-.show-and-tell {
-    font-weight: 500;
-}
-
-.thinking-about-adding-spot {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-
-.add-spot-form-label {
-    text-align: center;
-    margin-bottom: 10px;
-    width: 80%;
-}
-
-.adding-spot-inputs {
-    margin-bottom: 10px;
-    width: 60%;
-}
-
-.adding-new-spot-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-}
-
-.create-new-spot-button {
     justify-content: center;
-    margin-top: 20px;
-    height: 50px;
-    width: 250px;
-    color: orange;
+    margin-top: 5px;
+}
+
+#line {
+    border: none;
+    border-top: 1px solid black;
+    margin: 20px 0;
 }

@@ -1,6 +1,67 @@
-.this-one-spot {
+#spot-container {
     display: flex;
     flex-direction: column;
+    align-items: left;
     justify-content: center;
-    align-items: center;
+    padding: 10px;
+}
+
+#spot-name {
+    border: 1px solid blue;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#spot-location {
+    font-size: 14px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#spot-image {
+    object-fit: fill;
+    position: relative;
+    height: 250px;
+    width: 250px;
+    border: 1px solid black;
+    border-radius: 15px;
+}
+
+#hosted-by {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#description {
+    font-size: 14px;
+}
+
+#price-container {
+    float: right;
+    padding: 3px;
+    border: 1px solid black;
+}
+
+#price {
+    float: left;
+    margin-right: 10px;
+}
+
+#star-review {
+    float: right;
+}
+
+#reserve-button {
+    width: 100%;
+}
+
+#line {
+    border: none;
+    border-top: 1px solid black;
+    margin: 20px 0;
+}
+
+#review-section {
+    font-size: 18px;
+    font-weight: bold;
 }

@@ -7,7 +7,6 @@ import "./AddSpot.css";
 function AddSpot() {
     const dispatch = useDispatch();
     const history = useHistory();
-    const user = useSelector(state => state.session.user);
     const [name, setName] = useState('');
     const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
@@ -16,6 +15,7 @@ function AddSpot() {
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
     const [url, setUrl] = useState('');
+    const [imgURL, setImgURL] = useState('');
     const [lat, setLat] = useState('');
     const [lng, setLng] = useState('');
     const [errors, setErrors] = useState({});
@@ -23,20 +23,19 @@ function AddSpot() {
 
     useEffect(() => {
         const errors = {};
-        if (!name) errors.name = 'Must include Name';
+        if (!name) errors.name = 'Must include Spot Name';
         if (!address) errors.address = 'Must include Address';
         if (!city) errors.city = 'Must include City';
         if (!state) errors.state = 'Must include State';
         if (!country) errors.country = 'Must include Country';
         if (!description) errors.description = 'Must include Description';
+        if (description.length < 30) errors.description = 'Description needs a minimum of 30 characters';
         if (!price) errors.price = 'Must include Price';
         if (!url) errors.url = 'Must include Url';
 
         setErrors(errors)
 
     }, [name, address, city, state, country, description, price, url, lat, lng])
-
-    // if (!user) history.push("/");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -55,25 +54,22 @@ function AddSpot() {
       }
 
       return (
-        <>
-        <div className="add-spot-form-box">
-            <div className="add-spot-form"></div>
-            <h2 className="show-and-tell">Show Me What You Got</h2>
-          <form className="thinking-about-adding-spot" onSubmit={handleSubmit}>
-            <div className="adding-new-spot-form">
-            <label className="add-spot-form-label">
-              Name
-              <input
-                className="adding-spot-inputs"
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-                />
-            </label>
-            {submitted && errors.name && <p>{errors.name}</p>}
-            <label className="add-spot-form-label">
-              Address
+        <div className="add-spot-form-container">
+          <form className="add-spot-form" onSubmit={handleSubmit}>
+          <h1>Create a New Spot</h1>
+          <p id="location-font">Where's your place located?</p>
+          <p id="description-font">Guests will only get your exact address once they booked a reservation.</p>
+            <div>
+            <div>
+              <label>Country</label>
+                <input
+                  type="text"
+                  value={country}
+                  onChange={(e) => setCountry(e.target.value)}
+                  required
+                  />
+            {submitted && errors.country && <p>{errors.country}</p>}
+            <label>Street Address</label>
               <input
                 className="adding-spot-inputs"
                 type="text"
@@ -81,10 +77,9 @@ function AddSpot() {
                 onChange={(e) => setAddress(e.target.value)}
                 required
                 />
-            </label>
             {submitted && errors.address && <p>{errors.address}</p>}
-            <label className="add-spot-form-label">
-              City
+            </div>
+            <label>City</label>
               <input
                 className="adding-spot-inputs"
                 type="text"
@@ -92,10 +87,8 @@ function AddSpot() {
                 onChange={(e) => setCity(e.target.value)}
                 required
                 />
-            </label>
             {submitted && errors.city && <p>{errors.city}</p>}
-            <label className="add-spot-form-label">
-              State
+            <label>State</label>
               <input
                 className="adding-spot-inputs"
                 type="text"
@@ -103,56 +96,8 @@ function AddSpot() {
                 onChange={(e) => setState(e.target.value)}
                 required
                 />
-            </label>
             {submitted && errors.state && <p>{errors.state}</p>}
-            <label className="add-spot-form-label">
-              Country
-              <input
-                className="adding-spot-inputs"
-                type="text"
-                value={country}
-                onChange={(e) => setCountry(e.target.value)}
-                required
-                />
-            </label>
-            {submitted && errors.country && <p>{errors.country}</p>}
-            <label className="add-spot-form-label">
-              Description
-              <input
-                className="adding-spot-inputs"
-                type="text"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                required
-                />
-            </label>
-            {submitted && errors.description && <p>{errors.description}</p>}
-            <label className="add-spot-form-label">
-              Price Per Night
-              <input
-                className="adding-spot-inputs"
-                type="number"
-                min="1"
-                max="999999"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-                required
-                />
-            </label>
-            {submitted && errors.price && <p>{errors.price}</p>}
-            <label className="add-spot-form-label">
-              Preview Image
-              <input
-                className="adding-spot-inputs"
-                type="text"
-                value={url}
-                onChange={(e) => setUrl(e.target.value)}
-                required
-                />
-            </label>
-            {submitted && errors.firstName && <p>{errors.firstName}</p>}
-            <label className="add-spot-form-label">
-              Latitude
+            <label>Latitude</label>
               <input
                 className="adding-spot-inputs"
                 type="number"
@@ -162,10 +107,8 @@ function AddSpot() {
                 onChange={(e) => setLat(e.target.value)}
                 required
                 />
-            </label>
             {submitted && errors.lat && <p>{errors.lat}</p>}
-            <label className="add-spot-form-label">
-              Longitude
+            <label>Longitude</label>
               <input
                 className="adding-spot-inputs"
                 type="number"
@@ -175,13 +118,75 @@ function AddSpot() {
                 onChange={(e) => setLng(e.target.value)}
                 required
                 />
-            </label>
             {submitted && errors.lng && <p>{errors.lng}</p>}
-            <button className="create-new-spot-button" type="submit">Add A Spot!</button>
+            <div id="line"></div>
+            <p id="location-font">Describe your place to guests</p>
+            <p id="description-font">Mention the best features of your space, any special amenities like fast wifi or parking, and what you love about the neighborhood.</p>
+            <label>Description</label>
+              <input
+                className="adding-spot-inputs"
+                type="text"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                required
+                />
+            {submitted && errors.description && <p>{errors.description}</p>}
+            <div id="line"></div>
+            <p id="location-font">Create a Title for your Spot</p>
+            <p id="description-font">Catch guests' attention with a spot title that highlights what makes your place special</p>
+            <label>Name of your spot</label>
+              <input
+                className="adding-spot-inputs"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+                />
+            {submitted && errors.name && <p>{errors.name}</p>}
+            <div id="line"></div>
+            <p id="location-font">Set a base price for your spot</p>
+            <p id="description-font">Competitive pricing can help your listing stand out and rank higher in search results.</p>
+            <label>Price Per Night (USD)</label>
+            <div>$
+              <input
+                className="adding-spot-inputs"
+                type="number"
+                min="1"
+                max="999999"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                required
+                />
+            </div>
+            {submitted && errors.price && <p>{errors.price}</p>}
+            <div id="line"></div>
+            <p id="location-font">Liven up your spot with photos</p>
+            <p id="description-font">Submit a link to at least one photo to publish your spot.</p>
+            <label>Preview Image URL</label>
+              <input
+                className="adding-spot-inputs"
+                type="text"
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+                required
+                />
+            {submitted && errors.url && <p>{errors.url}</p>}
+            <label>Image URL</label>
+              <input
+                className="adding-spot-inputs"
+                type="text"
+                value={imgURL}
+                onChange={(e) => setImgURL(e.target.value)}
+                required
+                />
+            {submitted && errors.imgURL && <p>{errors.imgURL}</p>}
+            <div id="line"></div>
+            <div id="submit-addspot">
+              <button type="submit">Create Spot</button>
+            </div>
             </div>
           </form>
     </div>
-    </>
       );
 }
 

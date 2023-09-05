@@ -2,75 +2,72 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { spottingDetails } from "../../../store/spots";
 import { getCurrentReviews, deletingReview } from "../../../store/reviews";
-// import { getCurrentBookings } from "../../../store/bookings";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useParams, useHistory } from "react-router-dom";
 import "./GetSpotDetails.css";
 
 function GetSpotDetails() {
     const dispatch = useDispatch();
     const { spotId } = useParams();
+    const history = useHistory();
     const user = useSelector(state => state.session.user);
     const spots = useSelector(state => state.spots.spot);
-    const reviews = useSelector(state => {
-        return state.reviews.allReviews.Reviews});
-    // const bookings = useSelector(state => Object.values(state.bookings.allBookings));
+    const reviews = useSelector(state => {return state.reviews.allReviews.Reviews});
     const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
         dispatch(spottingDetails(spotId))
         .then(() => dispatch(getCurrentReviews(spotId)))
-        // .then(() => dispatch(getCurrentBookings(spotId)))
         .then(() => setIsLoaded(true))
     }, [dispatch, spotId]);
 
-
     let spotImage;
     if (spots?.SpotsImage) {
-        spotImage = spots?.SpotsImage?.map((picture) => {
+        spotImage = spots?.SpotsImage?.map(picture => {
             if (picture.preview) {
                 return (
-                    <img src={picture.url} alt="thisSpotPicture" key={`${picture.index}`} className=""/>
+                    <img src={picture.previewImage} alt="thisSpotPicture" className=""/>
                     )
-                } else {
-                    return (
-                        <div>Not Available</div>
-                        )
-                    }
-                })
+            } else {
+                return (
+                    <div>Not Available</div>
+                    )
             }
+                })
+    }
 
-            const getMonth = (monthNum)  => {
-                const date = new Date();
-                date.setMonth(monthNum - 1);
+    const getMonth = (monthNum)  => {
+        const date = new Date();
+        date.setMonth(monthNum - 1);
 
-                return date.toLocaleString('en-US');
-            };
+        return date.toLocaleString('en-US');
+    };
 
-            let reviewPosts;
-            if (reviews) {
-                reviewPosts = Object.values(reviews).map((review) => {
-                    const month = review.createdAt.slice(0, 4);
-                    const year = review.createdAt.slice(5, 7);
-                    return (
-                        <div className="" key={`${review?.id}`}>
-                    <div className="">
-                        {review.User?.firstName} {review.User?.lastName}
+    let reviewPosts;
+    if (reviews) {
+        reviewPosts = Object.values(reviews).map((review) => {
+            const year = review.createdAt.slice(0, 4);
+            const month = review.createdAt.slice(5, 7);
+            return (
+                <div key={`${review?.id}`}>
+                    <div>
+                        {review.User?.firstName}
                     </div>
-                    <div className="">
+                    <div>
                         {getMonth(month)} {year}
                     </div>
-                    <div className="">
+                    <div>
                         {review?.review}
                     </div>
                 </div>
             )
         })
     } else {
-        if (user && (user?.id !== spots?.Owner?.i)) {
-            reviewPosts =
-            <div>
-                <p>Be the first to post a review!</p>
-            </div>
+        if (user && (user?.id !== spots?.Owner?.id)) {
+            return (
+                <div>
+                    <p>Be the first to post a review!</p>
+                </div>
+            )
         }
     }
 
@@ -82,54 +79,67 @@ function GetSpotDetails() {
     }
 
     return isLoaded && spots && (
-        <>
-        <div className="this-one-spot">
-            <div>
+        <div id="spot-container">
                 <div>
-                    {spots.name}
-                    <div>
+                    <div id="spot-name">{spots.name}</div>
+                    <div id="spot-location">
                         {spots?.city}, {spots?.state}, {spots?.country}
                     </div>
-                    <div>
-                        {spotImage}
+                    <div id="spot-image">
+                        <img src={spots?.spotImage} alt="spotPicture">{spotImage}</img>
                     </div>
                     <div>
-                        <p>
+                        <p id="hosted-by">
                             Hosted by {spots?.Owner?.firstName} {spots?.Owner?.lastName}
                         </p>
-                        <p>
+                        <p id="description">
                             {spots?.description}
                         </p>
                     </div>
-                    <div>
-                        <div>
-                            Price: ${spots?.price} per Night
+                    <div id="price-container">
+                        <div id="price">
+                            ${spots?.price} per Night
+                        </div>
+                        <div id="star-review">
+                            {(spots?.numReviews < 1) &&
+                                <div>
+                                    ★ New
+                                </div>
+                            }
+                            {(spots?.numReviews >= 1) &&
+                                <div id="review-section">
+                                    ★ {spots?.avgStarRating} · {spots?.numReviews} review(s)
+                                </div>
+                            }
                         </div>
                         <div>
-                            ★ {spots?.avgStarRating} · {spots?.numReviews}
+                            <button id="reserve-button">Reserve</button>
                         </div>
-                        <button>Book!</button>
                     </div>
                 </div>
-                <div>
-                    <div>
-                        <h2>New</h2>
-                    </div>
+                <div id="line">
+                        {(spots?.numReviews < 1) &&
+                            <div>
+                                ★ New
+                            </div>
+                        }
+                        {(spots?.numReviews >= 1) &&
+                            <div id="review-section">
+                                ★ {spots?.avgStarRating} · {spots?.numReviews} review(s)
+                            </div>
+                        }
                 </div>
                 <div>
-                    {spots?.numReviews}
-                </div>
-                <div>
-                    {user && (user?.id !== spots?.Owner?.id) && !userHasReview &&
+                    {user && (user?.id !== spots?.Owner?.id) && (userHasReview === false) &&
                         <div>
                             <NavLink to={`/spots/${spots.id}/review`}>
-                                <button>Add a Review!</button>
+                                <button>Post Your Review</button>
                             </NavLink>
                         </div>
                     }
                 </div>
                 <div>
-                    {Object.values(reviews).map(review => (
+                    {user && Object.values(reviews).map(review => (
                         <div>
                             <h4>{review.User.firstName}</h4>
                             <h4>{review.createdAt}</h4>
@@ -144,9 +154,7 @@ function GetSpotDetails() {
                     ))}
                 </div>
                 {reviewPosts}
-            </div>
         </div>
-        </>
     )
 }
 

@@ -6,8 +6,7 @@ import "./GetAllSpots.css";
 
 function GetAllSpots() {
     const dispatch = useDispatch();
-    const spots = useSelector(state =>
-        {return state.spots.allSpots.Spots});
+    const spots = useSelector(state => {return state.spots.allSpots.Spots});
     const [isLoaded, setIsLoaded] = useState(false);
     useEffect(() => {
         dispatch(getAllSpots()).then(() => setIsLoaded(true));
@@ -24,14 +23,18 @@ function GetAllSpots() {
                     <div key={spot.name} className="display-city-and-state">
                         {spot.city}, {spot.state}
                     </div>
-                    <div className="all-spots-avgStars">
-                        ★ {spot.avgStarRating}
-                    </div>
-                    <div className="all-spots-availability">
-                        August 13 - 20
-                    </div>
+                    {(spot.avgStarRating <= 0) &&
+                        <div className="all-spots-avgStars">
+                        ★ New
+                        </div>
+                    }
+                    {(spot.avgStarRating > 0) &&
+                        <div className="all-spots-avgStars">
+                            ★ {spot.avgStarRating}
+                        </div>
+                    }
                     <div className="all-spots-pricing">
-                        {spot.price}
+                        ${spot.price} night
                     </div>
                 </NavLink>
             </div>
@@ -43,7 +46,6 @@ function GetAllSpots() {
                 {data}
             </div>
         )
-
 }
 
 export default GetAllSpots;
