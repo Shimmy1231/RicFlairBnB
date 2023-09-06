@@ -2,13 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { spottingDetails } from "../../../store/spots";
 import { getCurrentReviews, deletingReview } from "../../../store/reviews";
-import { NavLink, useParams, useHistory } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import "./GetSpotDetails.css";
 
 function GetSpotDetails() {
     const dispatch = useDispatch();
     const { spotId } = useParams();
-    const history = useHistory();
     const user = useSelector(state => state.session.user);
     const spots = useSelector(state => state.spots.spot);
     const reviews = useSelector(state => {return state.reviews.allReviews.Reviews});
@@ -141,9 +140,7 @@ function GetSpotDetails() {
                 <div>
                     {user && Object.values(reviews).map(review => (
                         <div>
-                            <h4>{review.User.firstName}</h4>
-                            <h4>{review.createdAt}</h4>
-                            <p>{review.review}</p>
+                            {(review.userId === user?.id) &&
                             <button onClick={async (e) => {
                                 e.preventDefault();
                                 await dispatch(deletingReview(review.id))
@@ -151,6 +148,7 @@ function GetSpotDetails() {
                             }}>
                             Delete Review
                             </button>
+                            }
                         </div>
                     ))}
                 </div>
