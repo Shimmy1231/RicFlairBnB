@@ -58,7 +58,7 @@ function App() {
             <GetAllSpots />
           </Route>
         </Switch>
-        {setDeletingModal && (
+        {deletingModal && (
           <ConfirmDeleteModal onDelete={handleDeletion} onCancel={() => setDeletingModal(false)} />
         )}
         </>
