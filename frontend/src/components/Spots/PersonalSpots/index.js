@@ -28,23 +28,21 @@ function PersonalSpots() {
                                     <img src={`${e.previewImage}`} alt="My Spot" id="per-spot-img"/>
                                 </div>
                                 <div id="d-container">
-                                <div>
                                     <div id="spot-descriptions">{e.city}, {e.state}, {e.country}</div>
                                     <div id="spot-descriptions">${e.price} Night</div>
                                 </div>
                                     <div id="star-review">
-                                    {(e.avgStarRating === 0) &&
+                                    {(e.avgStarRating == 0) &&
                                         <div>
                                             ★ New
                                         </div>
                                     }
                                     {(e.avgStarRating >= 1) &&
                                         <div id="review-section">
-                                            ★ {spots?.avgStarRating} · {spots?.avgStarRating} review(s)
+                                            ★ {e.avgStarRating}
                                         </div>
                                     }
                                     </div>
-                                </div>
                             </div>
                         </NavLink>
                         <div className="personal-spot-button-edit">

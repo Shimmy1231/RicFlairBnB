@@ -76,7 +76,7 @@ function UpdatingSpot () {
     return (
         <div className="add-spot-form-container">
           <form className="add-spot-form" onSubmit={handleSubmit}>
-          <h1>Create a New Spot</h1>
+          <h1>Update Spot</h1>
           <p id="location-font">Where's your place located?</p>
           <p id="description-font">Guests will only get your exact address once they booked a reservation.</p>
             <div>

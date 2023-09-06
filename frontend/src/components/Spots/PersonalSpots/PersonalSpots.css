@@ -52,7 +52,7 @@
 }
 
 #spot-descriptions {
-    font-size: 12px;
+    font-size: 10px;
     font-weight: bold;
 }
 
@@ -65,17 +65,10 @@
 #star-review {
     float: right;
     border: 1px solid red;
-
 }
 
 .personal-spot-edit-button {
     border: 3px solid lightcoral;
-    border-radius: 10px;
-    padding: 10px;
-}
-
-.personal-spot-terminate-button {
-    border: 3px solid red;
     border-radius: 10px;
     padding: 10px;
 }
