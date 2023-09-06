@@ -288,9 +288,9 @@ router.get('/:spotId/reviews', async (req, res) => {
 // Create a Review for a Spot based on the Spot's id
 router.post('/:spotId/reviews',
     requireAuth,
-    validateNewReview,
+    // validateNewReview,
     async (req, res) => {
-        let { review, stars } = req.body;
+        let { review, stars } = req.body.review;
         const spot = await Spot.findByPk(req.params.spotId, { include: { model: Review } });
         const user = await User.findByPk(req.user.id);
 

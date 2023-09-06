@@ -1,43 +1,47 @@
-import './ReviewForm.css'
-
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { createReviews, fetchSpotIdReviews } from '../../store/review';
+import { useHistory, useParams } from 'react-router-dom';
+import { addingReview, getCurrentReviews } from '../../store/reviews';
 import { useModal } from '../../context/Modal';
+import './AddReview.css'
 
-const ReviewForm = ({ spotId}) => {
+function AddReview () {
   const history = useHistory();
   const dispatch = useDispatch();
   const {closeModal} = useModal();
-
-  //review information
   const [review, setReview] = useState('');
-  const [stars, setStars] = useState('');
-
+  const [stars, setStars] = useState(1);
   const [errors, setErrors] = useState({});
+  const spotId = useParams().spotId;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
 
-    //needs to be added to state
     let reviews = {review, stars};
-    dispatch(createReviews(reviews, spotId))
-    .then(closeModal)
-    .then(dispatch(fetchSpotIdReviews(spotId)));
+    console.log(reviews, typeof stars, "WEOIFJWEIFJOWEIJFOIWEF")
+    dispatch(addingReview(reviews, spotId))
+    // .then(closeModal)
+    .catch(async (res) => {
+      const data = await res.json();
+      if (data && data.errors) {
+        setErrors(data.errors);
+      }
+    })
+    .then(dispatch(getCurrentReviews(spotId)));
     history.push(`/spots/${spotId}`)
   }
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="ReviewFormTitle">How was your stay?</div>
+      <div>How was your stay?</div>
       <label>
         Reviews :
         <input
           type="text"
           value={review}
           placeholder='Leave your review here'
+          maxlength="250"
           onChange={(e)=> setReview(e.target.value)}
         />
       </label>
@@ -51,6 +55,8 @@ const ReviewForm = ({ spotId}) => {
           <option value='5'>5</option>
         </select>
       </label>
+      <div>{errors.stars && <p>{errors.stars}</p>}</div>
+      <div>{errors.reviews && <p>{errors.reviews}</p>}</div>
       <button type="submit"
       disabled={
         review.length < 10
@@ -59,4 +65,4 @@ const ReviewForm = ({ spotId}) => {
   )
 }
 
-export default ReviewForm;
+export default AddReview;

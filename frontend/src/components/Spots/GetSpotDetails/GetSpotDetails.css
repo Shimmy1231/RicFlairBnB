@@ -7,7 +7,6 @@
 }
 
 #spot-name {
-    border: 1px solid blue;
     font-size: 18px;
     font-weight: bold;
 }
@@ -22,7 +21,11 @@
     object-fit: fill;
     position: relative;
     height: 250px;
-    width: 250px;
+    width: 350px;
+}
+#spot-picture {
+    height: 100%;
+    width: 100%;
     border: 1px solid black;
     border-radius: 15px;
 }

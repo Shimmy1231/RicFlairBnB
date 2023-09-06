@@ -10,6 +10,7 @@ import GetAllSpots from "./components/Spots/GetAllSpots";
 import PersonalSpots from "./components/Spots/PersonalSpots";
 import AddSpot from "./components/Spots/AddSpot";
 import GetSpotDetails from "./components/Spots/GetSpotDetails";
+import AddReview from "./components/AddReview";
 
 function App() {
   const dispatch = useDispatch();
@@ -25,6 +26,9 @@ function App() {
         <Switch>
           <Route path="/spots/current" exact>
             <PersonalSpots />
+          </Route>
+          <Route path="/spots/:spotId/review">
+            <AddReview />
           </Route>
           <Route path="/spots/new" exact>
             <AddSpot />

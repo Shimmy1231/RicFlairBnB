@@ -86,7 +86,7 @@ function GetSpotDetails() {
                         {spots?.city}, {spots?.state}, {spots?.country}
                     </div>
                     <div id="spot-image">
-                        <img src={spots?.spotImage} alt="spotPicture">{spotImage}</img>
+                        <img src={spots?.SpotsImages[0]?.url} alt="spotPicture" id="spot-picture">{spotImage}</img>
                     </div>
                     <div>
                         <p id="hosted-by">
@@ -101,16 +101,16 @@ function GetSpotDetails() {
                             ${spots?.price} per Night
                         </div>
                         <div id="star-review">
-                            {(spots?.numReviews < 1) &&
-                                <div>
-                                    ★ New
-                                </div>
-                            }
-                            {(spots?.numReviews >= 1) &&
-                                <div id="review-section">
-                                    ★ {spots?.avgStarRating} · {spots?.numReviews} review(s)
-                                </div>
-                            }
+                        {(spots?.numReviews < 1) &&
+                            <div>
+                                ★ New
+                            </div>
+                        }
+                        {(spots?.numReviews >= 1) &&
+                            <div id="review-section">
+                                ★ {spots?.avgStarRating} · {spots?.numReviews} review(s)
+                            </div>
+                        }
                         </div>
                         <div>
                             <button id="reserve-button">Reserve</button>
@@ -147,6 +147,7 @@ function GetSpotDetails() {
                             <button onClick={async (e) => {
                                 e.preventDefault();
                                 await dispatch(deletingReview(review.id))
+                                window.location.reload();
                             }}>
                             Delete Review
                             </button>
