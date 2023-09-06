@@ -18,7 +18,7 @@ function PersonalSpots() {
 
     return isLoaded && spots && (
         <div id="personal-spots-box">
-            <h1 id="personal-spots-title">My Spots</h1>
+            <h1 id="personal-spots-title">Manage Spots</h1>
             <div id="personal-spots-list-by-list">
                 {spotsArr.map((e) => (
                     <div id="my-spots" key={e.id}>

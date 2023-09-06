@@ -112,7 +112,7 @@ function GetSpotDetails() {
                         }
                         </div>
                         <div>
-                            <button id="reserve-button">Reserve</button>
+                            <button id="reserve-button" onClick={() => alert("Feature Coming Soon")}>Reserve</button>
                         </div>
                     </div>
                 </div>

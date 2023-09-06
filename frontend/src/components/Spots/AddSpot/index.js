@@ -50,7 +50,6 @@ function AddSpot() {
         }
 
         setErrors({});
-        setSubmitted(false);
       }
 
       return (

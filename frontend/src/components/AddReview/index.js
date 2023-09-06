@@ -59,7 +59,8 @@ function AddReview () {
       <button type="submit" id="button-for-review"
       disabled={
         review.length < 10
-      }>Submit Your Review</button>
+      } onClick={handleSubmit}
+    >Submit Your Review</button>
     </form>
   )
 }
