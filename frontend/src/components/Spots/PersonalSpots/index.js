@@ -7,51 +7,64 @@ import './PersonalSpots.css'
 function PersonalSpots() {
     const dispatch = useDispatch();
     const history = useHistory();
+    const spots = useSelector(state => {return state.spots.allSpots.Spots});
     const [isLoaded, setLoaded] = useState(false)
+    const spotsArr = Object.values(spots);
+
     useEffect(() => {
-        dispatch(getPersonalSpot()).then(() => setLoaded(true))
+        dispatch(getPersonalSpot())
+        .then(() => setLoaded(true))
     }, [dispatch])
 
-    const spots = useSelector(state => {return state.spots.allSpots.Spots});
-    const spotsArr = Object.values(spots);
-    return isLoaded && (
-        <>
-        <div className="personal-spots-box">
-            <h1 className="personal-spots-title">My Spots</h1>
-            <div className="personal-spots-list-by-list">
+    return isLoaded && spots && (
+        <div id="personal-spots-box">
+            <h1 id="personal-spots-title">My Spots</h1>
+            <div id="personal-spots-list-by-list">
                 {spotsArr.map((e) => (
-                    <div className="i-own-these-spots" key={e.id}>
-                        <NavLink to={`/spots/${e.id}`} className="link-to-personal-spots">
+                    <div id="my-spots" key={e.id}>
+                        <NavLink to={`/spots/${e.id}`} id="link-to-personal-spots">
                             <div>
                                 <div>
-                                    <img src={`${e.previewImage}`} alt="thinkthisismyspot" className="personal-spot-picture-single"/>
+                                    <img src={`${e.previewImage}`} alt="My Spot" id="per-spot-img"/>
                                 </div>
-                                <div className="personal-spot-data">
-                                    <div className="personal-spot-name-and-otherthings">{e.name}</div>
-                                    <div className="personal-spot-name-and-otherthings">{e.city}, {e.state}, {e.country}</div>
-                                    <div className="personal-spot-name-and-otherthings">${e.price} Per Night</div>
+                                <div id="d-container">
+                                <div>
+                                    <div id="spot-descriptions">{e.city}, {e.state}, {e.country}</div>
+                                    <div id="spot-descriptions">${e.price} Night</div>
+                                </div>
+                                    <div id="star-review">
+                                    {(e.avgStarRating === 0) &&
+                                        <div>
+                                            ★ New
+                                        </div>
+                                    }
+                                    {(e.avgStarRating >= 1) &&
+                                        <div id="review-section">
+                                            ★ {spots?.avgStarRating} · {spots?.avgStarRating} review(s)
+                                        </div>
+                                    }
+                                    </div>
                                 </div>
                             </div>
                         </NavLink>
                         <div className="personal-spot-button-edit">
                             <NavLink to={`/spots/${e.id}/edit`}>
                                 <button className="personal-spot-edit-button">
-                                    Edit Your Listing
+                                    Update
                                 </button>
                             </NavLink>
-                            <button className="" onClick={async (el) => {
+                            <button className="personal-spot-edit-button" onClick={async (el) => {
                                 el.preventDefault();
                                 const terminated = await dispatch(deletingSpot(e.id));
                                 if (terminated) history.push("/")
                             }}>
-                            Delete Your Listing
+                            Delete
                             </button>
                         </div>
                     </div>
                 ))}
             </div>
         </div>
-        </>
     )
 }
 

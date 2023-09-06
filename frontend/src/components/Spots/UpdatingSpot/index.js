@@ -206,7 +206,7 @@ function UpdatingSpot () {
             </div>
             </div>
           </form>
-    </div>
-      );
+        </div>
+    );
 }
 export default UpdatingSpot;

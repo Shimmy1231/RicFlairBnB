@@ -1,13 +1,46 @@
-.personal-spots-box {
+#personal-spots-box {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.personal-spots-title {
+#personal-spots-title {
     display: flex;
     justify-content: center;
     margin-top: 3%;
+    font-weight: bold;
+}
+
+#personal-spots-list-by-list {
+    display: flex;
+    flex-direction: row;
+    flex: wrap;
+    justify-content: space-evenly;
+    padding: 25px;
+}
+
+#my-spots {
+    display: flex;
+    flex-direction: column;
+    flex: wrap;
+    justify-content: center;
+    width: 100%;
+    border: 3px solid lightcoral;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+}
+
+#link-to-personal-spots {
+    text-decoration: none;
+}
+
+#per-spot-img {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    object-fit: fill;
+    border-radius: 15px;
 }
 
 .add-new-listing-button {
@@ -18,46 +51,21 @@
     background-color: blueviolet;
 }
 
-.personal-spots-list-by-list {
-    display: flex;
-    flex-direction: row;
-    flex: wrap;
-    justify-content: space-evenly;
-    padding: 25px;
+#spot-descriptions {
+    font-size: 12px;
+    font-weight: bold;
 }
 
-.i-own-these-spots {
-    display: flex;
-    flex-direction: column;
-    flex: wrap;
-    justify-content: center;
-    width: 150px;
-    border: 3px solid lightcoral;
-    border-radius: 10px;
-    padding: 10px;
+#d-container {
+    float: left;
+    padding: 3px;
+    border: 1px solid black;
 }
 
-.link-to-personal-spots {
-    text-decoration: none;
-}
+#star-review {
+    float: right;
+    border: 1px solid red;
 
-.personal-spot-picture-single {
-    width: 200px;
-    height: 200px;
-    position: relative;
-    object-fit: cover;
-    border-radius: 15px;
-}
-
-.personal-spot-data {
-    display: flex;
-    justify-content: center;
-    width: 200px;
-    color: lightgreen;
-}
-
-.personal-spot-name-and-otherthings {
-    font-weight: 500;
 }
 
 .personal-spot-edit-button {
