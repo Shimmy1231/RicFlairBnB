@@ -31,6 +31,7 @@ function App() {
     <>
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
+        <>
         <Switch>
           <Route path="/spots/current" exact>
             <PersonalSpots />
@@ -58,8 +59,9 @@ function App() {
           </Route>
         </Switch>
         {setDeletingModal && (
-          <ConfirmDeleteModal onDelete={handleDeletion} onCancel={() => setDeletingModal(false)}
+          <ConfirmDeleteModal onDelete={handleDeletion} onCancel={() => setDeletingModal(false)} />
         )}
+        </>
       )}
     </>
   );
