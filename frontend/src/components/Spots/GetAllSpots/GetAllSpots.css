@@ -4,66 +4,97 @@
     justify-content: space-evenly;
 }
 
+
 .single-spot-link {
-    flex: 5;
-    text-decoration: none;
-}
-
-@media (max-width: 1200px) {
-    .single-spot-link {
-      min-width: calc(33.33% - 20px);
-    }
-  }
-
-  @media (max-width: 768px) {
-    .single-spot-link {
-      min-width: calc(50% - 20px);
-    }
-  }
-
-  @media (max-width: 480px) {
-    .single-spot-link {
-      min-width: calc(100% - 20px);
-    }
-  }
-
-.single-spot-display {
-    display: flex;
-    flex-direction: row;
+  flex: 5;
+  text-decoration: none;
 }
 
 .each-spot-image {
-    object-fit: fill;
-    position: relative;
-    height: 250px;
-    width: 250px;
-    border: 1px solid black;
-    border-radius: 15px;
-    z-index: -1;
-}
+  object-fit: fill;
+  position: relative;
+  height: 250px;
+  width: 250px;
+  border: 1px solid black;
+  border-radius: 15px;
+  z-index: -1;
+  }
 
-.get-all-spots {
-    display: flex;
+  .get-all-spots {
     justify-content: flex-start;
     align-content: flex-start;
     flex-wrap: wrap;
     padding: 15px 15px;
-    gap: 20px;
-}
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
+    gap: 20px; /* Adjust the gap between columns as needed */
+  }
+  @media (max-width: 1200px) {
+    .get-all-spots {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+  }
 
-.display-city-and-state {
+  @media (max-width: 768px) {
+    .get-all-spots {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+  }
+
+  @media (max-width: 480px) {
+    .get-all-spots {
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    }
+  }
+
+  .display-city-and-state {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     font-weight: 777;
-}
+  }
 
-.all-spots-avgStars {
+  .all-spots-avgStars {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+  }
+
+  .all-spots-pricing {
+    font-weight: 777;
+  }
+
+  .image-container {
+    position: relative;
+  display: inline-block;
 }
 
-.all-spots-pricing {
-    font-weight: 777;
+.tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.image-container:hover .tooltip {
+  opacity: 1;
+}
+
+.tooltip::before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  border-width: 6px;
+  border-style: solid;
+  border-color: transparent transparent rgba(0, 0, 0, 0.7) transparent;
+  transform: translateX(-50%);
 }

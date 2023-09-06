@@ -28,6 +28,7 @@ function AddReview () {
     })
     .then(dispatch(getCurrentReviews(spotId)));
     history.push(`/spots/${spotId}`)
+    window.location.reload();
   }
 
   return (

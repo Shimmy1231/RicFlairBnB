@@ -202,7 +202,7 @@ function UpdatingSpot () {
             {submitted && errors.imgURL && <p>{errors.imgURL}</p>}
             <div id="line"></div>
             <div id="submit-addspot">
-              <button type="submit" onClick={handleSubmit}>Create Spot</button>
+              <button type="submit" onClick={handleSubmit}>Update Spot</button>
             </div>
             </div>
           </form>

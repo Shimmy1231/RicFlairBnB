@@ -17,9 +17,10 @@ function GetAllSpots() {
         return (
             <div className="all-spots">
                 <NavLink to={`/spots/${spot.id}`} className="single-spot-link">
-                    <div>
-                        <img src={spot.previewImage} alt='usethisimage' className="each-spot-image"/>
-                    </div>
+                <div className="image-container" data-tooltip={spot.name}>
+                    <img src={spot.previewImage} alt={spot.name} className="each-spot-image" />
+                    <div className="tooltip">{spot.name}</div>
+                </div>
                     <div key={spot.name} className="display-city-and-state">
                         {spot.city}, {spot.state}
                     </div>

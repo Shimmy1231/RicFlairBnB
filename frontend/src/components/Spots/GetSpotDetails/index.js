@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { spottingDetails } from "../../../store/spots";
-import { getCurrentReviews, deletingReview } from "../../../store/reviews";
 import { NavLink, useParams } from "react-router-dom";
+import { getCurrentReviews, deletingReview } from "../../../store/reviews";
+import ConfirmDeleteModal from "../../ConfirmDeleteModal";
 import "./GetSpotDetails.css";
 
 function GetSpotDetails() {
