@@ -12,10 +12,17 @@ import AddSpot from "./components/Spots/AddSpot";
 import GetSpotDetails from "./components/Spots/GetSpotDetails";
 import UpdatingSpot from "./components/Spots/UpdatingSpot";
 import AddReview from "./components/AddReview";
+import ConfirmDeleteModal from"./components/ConfirmDeleteModal"
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+  const [deletingModal, setDeletingModal] = useState(false);
+
+  const handleDeletion = () => {
+    setDeletingModal(false);
+  }
+
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
@@ -50,6 +57,9 @@ function App() {
             <GetAllSpots />
           </Route>
         </Switch>
+        {setDeletingModal && (
+          <ConfirmDeleteModal onDelete={handleDeletion} onCancel={() => setDeletingModal(false)}
+        )}
       )}
     </>
   );
