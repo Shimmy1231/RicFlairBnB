@@ -55,7 +55,7 @@ function PersonalSpots() {
                             </NavLink>
                             <button className="personal-spot-edit-button" onClick={async (el) => {
                                 el.preventDefault();
-                                const terminated = await dispatch(deletingSpot(e.id));
+                                const terminated = await dispatch(deletingSpot(el.id));
                                 if (terminated) history.push("/")
                             }}>
                             Delete
