@@ -10,6 +10,7 @@ import GetAllSpots from "./components/Spots/GetAllSpots";
 import PersonalSpots from "./components/Spots/PersonalSpots";
 import AddSpot from "./components/Spots/AddSpot";
 import GetSpotDetails from "./components/Spots/GetSpotDetails";
+import UpdatingSpot from "./components/Spots/UpdatingSpot";
 import AddReview from "./components/AddReview";
 
 function App() {
@@ -29,6 +30,9 @@ function App() {
           </Route>
           <Route path="/spots/:spotId/review">
             <AddReview />
+          </Route>
+          <Route path="/spots/:spotId/edit">
+            <UpdatingSpot />
           </Route>
           <Route path="/spots/new" exact>
             <AddSpot />

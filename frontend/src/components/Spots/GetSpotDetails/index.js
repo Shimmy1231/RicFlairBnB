@@ -134,6 +134,11 @@ function GetSpotDetails() {
                             <NavLink to={`/spots/${spots.id}/review`}>
                                 <button>Post Your Review</button>
                             </NavLink>
+                        {(spots?.numReviews < 1) &&
+                            <div>
+                                Be the first to post a review!
+                            </div>
+                        }
                         </div>
                     }
                 </div>

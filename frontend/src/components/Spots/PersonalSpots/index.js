@@ -12,9 +12,8 @@ function PersonalSpots() {
         dispatch(getPersonalSpot()).then(() => setLoaded(true))
     }, [dispatch])
 
-    const spots = useSelector(state => {
-        return state.spots.allSpots.Spots});
-    let spotsArr = Object.values(spots);
+    const spots = useSelector(state => {return state.spots.allSpots.Spots});
+    const spotsArr = Object.values(spots);
     return isLoaded && (
         <>
         <div className="personal-spots-box">
