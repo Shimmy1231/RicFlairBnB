@@ -40,22 +40,28 @@ function SignupFormModal() {
       return setErrors({
         email: "Must be a valid email"
       })
-    } else if (username.length < 4) {
+    }
+    if (username.length < 4) {
       return setErrors({
         username: "Must be over 4 characters long"
       })
-    } else if (firstName.length < 2) {
+    }
+    if (firstName.length < 2) {
       return setErrors({
         firstName: "Must be over 1 character long"
       })
-    } else if (lastName.length < 2) {
+    }
+    if (lastName.length < 2) {
       return setErrors({
         lastName: "Must be over 1 character long"
       })
     }
-    return setErrors({
-      confirmPassword: "Confirm Password must be the same as the Password"
-    })
+    if (password !== confirmPassword) {
+      return setErrors({
+        confirmPassword: "Confirm Password must be the same as the Password"
+      })
+    }
+    return setErrors();
   }
 
   return (
