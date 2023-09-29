@@ -1,5 +1,5 @@
-import React, { useState } from "react";
 import * as sessionActions from "../../store/session";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./LoginForm.css";
@@ -24,6 +24,7 @@ function LoginFormModal() {
           setErrors(data.errors);
         }
       });
+
   };
 
   const demoUserLogin = () => {
