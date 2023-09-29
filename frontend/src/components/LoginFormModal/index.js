@@ -54,24 +54,28 @@ function LoginFormModal() {
             value={credential}
             onChange={handleCredChange}
             required
-          />
+            />
         </label>
         <label>
           Password
-          <input id="login-password"
+          <input id="login-username-or-email"
             type="password"
             value={password}
             onChange={handlePwChange}
             required
-          />
+            />
         </label>
         <div id="login-modal-fail">
         {errors.credential && (
           <p>{errors.credential}</p>
         )}
         </div>
+        <div>
         <button type="submit" id="login-button" disabled={credentialLength < 4 || passwordLength < 6}>Log In</button>
-        <button id="login-button-for-demo" onClick={demoUserLogin}>Demo User</button>
+        </div>
+        <div>
+          <button id="login-button-for-demo" onClick={demoUserLogin}>Demo User</button>
+        </div>
       </form>
     </div>
     </>

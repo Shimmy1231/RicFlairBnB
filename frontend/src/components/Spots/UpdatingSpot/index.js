@@ -67,6 +67,7 @@ function UpdatingSpot () {
           newSpot.SpotImages = [{ url: url }]
           if (newSpot) {
             history.push(`/spots/${newSpot.id}`)
+            window.location.reload()
           }
         }
 

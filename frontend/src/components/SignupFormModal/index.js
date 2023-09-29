@@ -28,23 +28,39 @@ function SignupFormModal() {
           password
         })
       )
-        .then(closeModal)
-        .catch(async (res) => {
-          const data = await res.json();
-          if (data && data.errors) {
-            setErrors(data.errors);
-          }
-        });
+      .then(closeModal)
+      .catch(async (res) => {
+        const data = await res.json();
+        if (data && data.errors) {
+          setErrors(data.errors);
+        }
+      });
     }
-
+    if (!email.includes("@")) {
+      return setErrors({
+        email: "Must be a valid email"
+      })
+    } else if (username.length < 4) {
+      return setErrors({
+        username: "Must be over 4 characters long"
+      })
+    } else if (firstName.length < 2) {
+      return setErrors({
+        firstName: "Must be over 1 character long"
+      })
+    } else if (lastName.length < 2) {
+      return setErrors({
+        lastName: "Must be over 1 character long"
+      })
+    }
     return setErrors({
-      confirmPassword: "Confirm Password field must be the same as the Password field"
+      confirmPassword: "Confirm Password must be the same as the Password"
     })
   }
 
   return (
-    <>
-      <h1>Sign Up</h1>
+    <div>
+      <div id="signup">Sign Up</div>
       <form className="signing-up-form" onSubmit={handleSubmit}>
         <div>
           <label className="signing-up-box-top">
@@ -130,16 +146,9 @@ function SignupFormModal() {
           </label>
         </div>
         {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <button className="button-for-signingup" type="submit" disabled={
-          username.length < 4 ||
-          password.length < 6 ||
-          password !== confirmPassword ||
-          email.length < 1 ||
-          firstName.length < 1 ||
-          lastName.length < 1
-        }>Sign Up</button>
+        <button className="button-for-signingup" type="submit">Sign Up</button>
       </form>
-    </>
+    </div>
   );
 }
 
